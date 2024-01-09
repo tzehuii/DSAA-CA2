@@ -71,6 +71,10 @@ class Menu:
     def option1(self):
         print('abc')
 
+    # Option 2
+    def option2(self):
+        print('abc')
+
     # Option 8
     def option8(self):
         print('\nBye, thanks for using ST1507 DSAA: Evaluating & Sorting Assignment Statements')
