@@ -8,8 +8,9 @@ from binaryTree import BinaryTree
 from tokenization import Tokenization
 
 class parseTree:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, tree):
+        self.evaluate(tree)
+
 
     # This tokenisation only look at the spaces in between
     def buildParseTree(exp):
@@ -71,3 +72,4 @@ class parseTree:
             return tree.getKey()
         
         # divide by 0 will make it crash so need to take care of it to ensure it doesnt crash (in assignment)
+    

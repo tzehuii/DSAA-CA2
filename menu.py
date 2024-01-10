@@ -4,6 +4,8 @@
 
 # Imports
 from utility import Utility
+from parseTree import parseTree
+
 
 class Menu:
 
@@ -69,7 +71,10 @@ class Menu:
 
     # Option 1
     def option1(self):
-        print('abc')
+        exp = '( 2 + ( 4 * 5 ) )'
+        tree = parseTree.buildParseTree(exp)
+        parser_instance = parseTree(tree)
+        print(f'The expression: {exp} evaluates to: {parser_instance.evaluate(tree)}')
 
     # Option 2
     def option2(self):
