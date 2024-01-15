@@ -26,7 +26,7 @@ class BinaryTree:
         else:
             t =BinaryTree(key)
             self.leftTree , t.leftTree = t, self.leftTree
-        
+         
     def insertRight(self, key):
         if self.rightTree == None:
             self.rightTree = BinaryTree(key)

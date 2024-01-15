@@ -7,10 +7,9 @@ from stack import Stack
 from binaryTree import BinaryTree
 from tokenization import Tokenization
 
-class parseTree:
+class parseTree(BinaryTree):
     def __init__(self, tree):
         self.evaluate(tree)
-
 
     # This tokenisation only look at the spaces in between
     def buildParseTree(exp):

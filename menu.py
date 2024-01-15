@@ -11,6 +11,7 @@ class Menu:
 
     # Intialise self to run the few programs when called
     def __init__(self):
+        self.statement_storage = {}
         self.printOutline()
         # Utility.userInput()
         self.selection()
@@ -71,14 +72,29 @@ class Menu:
 
     # Option 1
     def option1(self):
-        exp = '( 2 + ( 4 * 5 ) )'
-        tree = parseTree.buildParseTree(exp)
-        parser_instance = parseTree(tree)
-        print(f'The expression: {exp} evaluates to: {parser_instance.evaluate(tree)}')
+        statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
+
+        # spilt the var and experession
+        var, exp = statement.split('=')  
+
+        # Modifying existing assignment statement 
+        if var in  self.statement_storage:
+            self.statement_storage[var] = exp
+        else:
+            # Store the variables and expression in a dictionary 
+            self.statement_storage[var] = exp
 
     # Option 2
     def option2(self):
         print('abc')
+
+
+    # Option 3
+    def option3(self):
+        exp = '( 2 + ( 4 * 5 ) )'
+        tree = parseTree.buildParseTree(exp)
+        parser_instance = parseTree(tree)
+        print(f'The expression: {exp} evaluates to: {parser_instance.evaluate(tree)}')
 
     # Option 8
     def option8(self):
