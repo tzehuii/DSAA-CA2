@@ -9,7 +9,7 @@ from tokenization import Tokenization
 
 class parseTree(BinaryTree):
     def __init__(self, tree):
-        self.evaluate(tree)
+        self.evaluate(tree) 
 
     # This tokenisation only look at the spaces in between
     def buildParseTree(exp):
