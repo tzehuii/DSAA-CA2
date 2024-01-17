@@ -5,7 +5,7 @@
 # Imports
 
 class Utility:
-
+ 
 # -------------------------------------Inputs--------------------------------------
 
     # Get the user input for intgers
@@ -26,3 +26,13 @@ class Utility:
             return enter
         else:
             return input(prompt)
+
+# -------------------------------------Validate--------------------------------------
+def validateVarName(statement):
+    # spilt the var and experession
+    var, exp = statement.split('=')  
+
+    if len(var) == 1:
+        pass
+    else: 
+        Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')

@@ -71,6 +71,20 @@ class Menu:
             print()
 
     # Option 1
+    # def option1(self):
+    #     statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
+
+    #     # spilt the var and experession
+    #     var, exp = statement.split('=')  
+
+    #     # Modifying existing assignment statement 
+    #     if var in self.statement_storage:
+    #         self.statement_storage[var] = exp
+    #     else:
+    #         # Store the variables and expression in a dictionary 
+    #         self.statement_storage[var] = exp
+
+    # do we need to validate and ensure that the variable is 1 char?? for option 1
     def option1(self):
         statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
 
@@ -78,13 +92,11 @@ class Menu:
         var, exp = statement.split('=')  
 
         # Modifying existing assignment statement 
-        if var in  self.statement_storage:
+        if var in self.statement_storage:
             self.statement_storage[var] = exp
         else:
             # Store the variables and expression in a dictionary 
             self.statement_storage[var] = exp
-
-    # do we need to validate and ensure that the variable is 1 char?? for option 1
 
     # Option 2
     # def option2(self):
