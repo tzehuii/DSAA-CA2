@@ -86,10 +86,7 @@ class Menu:
 
     # do we need to validate and ensure that the variable is 1 char?? for option 1
     def option1(self):
-        statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
-
-        # spilt the var and experession
-        var, exp = statement.split('=')  
+        var, exp = Utility.validateVarName()
 
         # Modifying existing assignment statement 
         if var in self.statement_storage:

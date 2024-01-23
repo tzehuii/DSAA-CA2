@@ -28,11 +28,15 @@ class Utility:
             return input(prompt)
 
 # -------------------------------------Validate--------------------------------------
-def validateVarName(statement):
-    # spilt the var and experession
-    var, exp = statement.split('=')  
+def validateVarName():
+    while True: 
+        # Ask for the user input 
+        statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
 
-    if len(var) == 1:
-        pass
-    else: 
-        Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
+        # spilt the var and experession
+        var, exp = statement.split('=')  
+
+        if len(var) == 1:
+            return var, exp
+        else: 
+            Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
