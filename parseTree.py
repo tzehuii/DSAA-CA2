@@ -66,7 +66,10 @@ class parseTree(BinaryTree):
             elif op == '*':
                 return self.evaluate(leftTree) * self.evaluate(rightTree)
             elif op == '/':
-                return self.evaluate(leftTree) / self.evaluate(rightTree)
+                try:
+                    return self.evaluate(leftTree) / self.evaluate(rightTree)
+                except ZeroDivisionError:
+                    print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
         else:
             return tree.getKey()
         

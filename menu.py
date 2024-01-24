@@ -87,7 +87,7 @@ class Menu:
         print('*'*20)
 
         for var, exp in self.statement_storage():
-            evaluated_exp = parseTree.evaluate({var: exp})
+            evaluated_exp = parseTree.evaluate({var : exp})
             if exp is not None:
                 print(f'{var}={exp}-->{evaluated_exp}\n')
             else:
