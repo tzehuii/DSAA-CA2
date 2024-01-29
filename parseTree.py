@@ -16,7 +16,7 @@ class parseTree():
     # This tokenisation only look at the spaces in between
     def buildParseTree(self, exp):
         # take out the tokensiation 
-        tokens = Tokenization.token(exp) # look at the spaces 
+        tokens = Tokenization.tokenize(exp) # look at the spaces 
         stack = Stack()
         tree = BinaryTree('?')
         stack.push(tree)

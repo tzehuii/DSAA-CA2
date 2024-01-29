@@ -81,21 +81,29 @@ class Menu:
             # Store the variables and expression in a dictionary 
             self.statement_storage[var] = exp
 
+    # need to validate option 1 again 
+
     # Option 2
     def option2(self):
-        print('CURRENT ASSIGNMENTS:')
+        print('\nCURRENT ASSIGNMENTS:')
         print('*'*20) 
 
-        for var, exp in self.statement_storage():
-            evaluated_exp = parseTree.evaluate({var : exp})
+        # to get the variable and expression for evaluation 
+        for var, exp in self.statement_storage.items():
+            # build the parse tree for evaluation 
+            tree = parseTree(exp)
+
+            # evaluate the statement  
+            evaluated_exp = tree.result
+
+            # strip the space to print nicely for aesthetics  purpose 
+            correct_exp = exp.replace(" ", "")
+
+            # print out the statement and the results
             if exp is not None:
-                print(f'{var}={exp}-->{evaluated_exp}\n')
+                print(f'{var} = {correct_exp} --> {evaluated_exp}\n')
             else:
-                print(f'{var}={exp}-->None\n')
-
-        
-
-
+                print(f'{var} = {correct_exp} -->None\n')
 
     # Option 3
     def option3(self):
