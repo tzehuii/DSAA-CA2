@@ -74,4 +74,9 @@ class parseTree():
                     print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
         else:
             return tree.getKey()
-    
+
+
+# Example usage:
+expression = '( 2 + ( 4 * 5 ) )'
+parse_tree = parseTree(expression)
+print(f"The result of the expression '{expression}' is: {parse_tree.result}")

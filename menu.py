@@ -84,7 +84,7 @@ class Menu:
     # Option 2
     def option2(self):
         print('CURRENT ASSIGNMENTS:')
-        print('*'*20)
+        print('*'*20) 
 
         for var, exp in self.statement_storage():
             evaluated_exp = parseTree.evaluate({var : exp})

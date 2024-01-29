@@ -3,6 +3,7 @@
 # Class: DAA/2B/01
 
 # Imports
+import string 
 
 class Utility:
  
@@ -35,11 +36,21 @@ class Utility:
                 statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
 
                 # spilt the var and experession
-                var, exp = statement.split('=')  
+                var, exp = statement.split('=', 1)  
+
+                # Remove spaces from var and exp and check each character
+                var = var.strip()
+                cleaned_exp = exp.replace(" ", "")
 
                 if len(var) == 1:
-                    return var, exp
+                    for char in cleaned_exp:
+                        if not char.isdigit() and char not in ['(','+','-','/','*',')']: 
+                            print(f"At least one character in {exp} is not numeric or is not '(' or ')'")
+                            Utility.validateVarName()
+
+                    return var, exp 
+                
                 else: 
                     Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
             except ValueError:
-                print('Invalid input. Please enter a valid integer.')
+                print('Invalid input. Please enter a valid statement.')
