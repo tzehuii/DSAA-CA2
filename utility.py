@@ -43,11 +43,22 @@ class Utility:
                 cleaned_exp = exp.replace(" ", "")
 
                 if len(var) == 1:
+                    
+                    # Check for incomplete statements
+                    # if cleaned_exp.strip().endswith(('+','-','*','/','')):
+                    #     print('Invalid incomplete statement. Please enter a complete assignment.')
+                    #     Utility.validateVarName()
+
                     for char in cleaned_exp:
+                        # if not number or have operators (ask them to retype the statement)
                         if not char.isdigit() and char not in ['(','+','-','/','*',')']: 
-                            print(f"At least one character in {exp} is not numeric or is not '(' or ')'")
+                            print(f"At least one character in {exp} is not numeric or not an operator")
                             Utility.validateVarName()
 
+                        # if not in letters or have operators (ask them to retype the statement)
+                        elif not char.isalpha() and char not in ['(','+','-','/','*',')'] and not char.isdigit():
+                            print(f'{char} is not defined!')
+                            Utility.validateVarName()
                     return var, exp 
                 
                 else: 
