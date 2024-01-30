@@ -21,17 +21,19 @@ class Tokenization:
         tokens = []
         current_token = ''
 
-        is_unary_minus = True
+        is_unary_minus = True # for negative numbers
 
         # removes the spaces in between the exp
         for char in exp:
+
+            # basically to not read the space
             if char.isspace():
                 continue
             
             # alnum returns "true" is the char is a letter or a number
             if char.isalnum() or char == '.':
                 current_token += char # char is appended into current_token variable
-                is_unary_minus = False  # Reset the unary_minus flag
+                is_unary_minus = False  # Reset the unary_minus flag (means not part of neg number)
             
             elif char == '-' and is_unary_minus:
                 current_token += char  # Unary minus is part of the current_token
@@ -42,17 +44,22 @@ class Tokenization:
                     tokens.append(current_token)
                     # print(current_token, "oop") # append the chars
                     current_token = ''
-                if char == '*' and tokens and tokens[-1] == '*':
+                if char == '*' and tokens[-1] == '*':
                     tokens[-1] = '**' # combine the ** tgt
 
-                elif tokens and tokens[-1] == char: # if the 2 operators are the consectively the same 
+                elif tokens and tokens[-1] == char: # if the 2 operators are the consectively the same , NEED TO HANDLE THE SITUATION WHEN THERE IS PEDMAS (((DOUBLE BRACKETS TOGETHER)))
+                    print(exp, "EXPRESSION")
+                    print(tokens[-2], "TOKEN")
+                    print(tokens[-1], "TOKEN[-1]")
+                    print(char, "CHAR")
+
                     raise ValueError(f"Invalid consecutive operators: {char}{char}") # find a way to by pass this without causing an error
                 
                 # elif len(tokens) >= 2 and tokens[-1] in ('+', '-', '/', '**') and char == '/' or char == '+' or char == '**': # handle the case of / with another operator
                 #     raise ValueError(f"Invalid operator sequence: {tokens[-1]}{char}")
                 
                 else:
-                    tokens.append(char)# append the operators
+                    tokens.append(char) # append the operators
                 # print(char, "yellow") 
                     
                 is_unary_minus = True  # Reset the unary_minus flag for the next iteration
@@ -83,13 +90,13 @@ class Tokenization:
 
         return tokens
 
-# Example usage:
-expression = "( -1 ** 9) + - 3)"
-tokens = Tokenization.tokenize(expression) # handle the scenario where 2 operators like +- are back to back
-print(tokens)
+# # Example usage:
+# expression = "( -1 ** 9) + - 3)"
+# tokens = Tokenization.tokenize(expression) # handle the scenario where 2 operators like +- are back to back
+# print(tokens)
 
 
-reg_expression = "(432*(34.35-23/235) - 392 / 31)"
-# Using regex-based tokenization
-regex_tokens = Tokenization.tokenize_with_regex(reg_expression)
-print(regex_tokens)
+# reg_expression = "(432*(34.35-23/235) - 392 / 31)"
+# # Using regex-based tokenization
+# regex_tokens = Tokenization.tokenize_with_regex(reg_expression)
+# print(regex_tokens)
