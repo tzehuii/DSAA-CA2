@@ -82,7 +82,7 @@ class Utility:
 
                     # for char in cleaned_exp:
                     #     # if not number and dont have operators (ask them to retype the statement)
-                    #     if not char.isdigit() and char not in ['(','+','-','/','*',')']: 
+                    #     if char not in ['(','+','-','/','*',')']: 
                     #         print(f"At least one character in {exp} is not numeric or not an operator")
                     #         Utility.validateVarName()
                     
