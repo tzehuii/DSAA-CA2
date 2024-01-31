@@ -34,7 +34,7 @@ class parseTree():
             # RULE 2: If token is operator set key of current node 
             # to that operator and add a new node as right child 
             # and descend into that node
-            elif t in ['+', '-', '*', '/']:
+            elif t in ['+', '-', '*', '/','**']:
                 currentTree.setKey(t)
                 currentTree.insertRight('?') 
                 stack.push(currentTree)
@@ -42,7 +42,7 @@ class parseTree():
                 
             # RULE 3: If token is number, set key of the current node 
             # to that number and return to parent
-            elif t not in ['+', '-', '*', '/', ')'] : 
+            elif t not in ['+', '-', '*', '/', '**',')'] : 
                 currentTree.setKey(int(t)) #integer (cause it to not work with float)
                 parent = stack.pop()
                 currentTree = parent
@@ -60,6 +60,7 @@ class parseTree():
         rightTree = tree.getRightTree()
         op = tree.getKey()
         
+        # evaluate base on the pemdas rule
         if leftTree is not None and rightTree is not None: 
             if op == '+':
                 return self.evaluate(leftTree) + self.evaluate(rightTree)
@@ -72,6 +73,48 @@ class parseTree():
                     return self.evaluate(leftTree) / self.evaluate(rightTree)
                 except ZeroDivisionError:
                     print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
+            elif op == '**':
+                return self.evaluate(leftTree) ** self.evaluate(rightTree)
         else:
             return tree.getKey()
+        
+
+
+
+# reference for pemdas
+
+    def pemdas(self):
+        return self._pemdas_recursive(self.tree)
+
+    def _pemdas_recursive(self, tree):
+        if tree is not None:
+
+            # isinstance(object, type) 
+            if isinstance(tree.getKey(), float):
+                return tree.getKey()
+
+            operator = tree.getKey()
+
+            # Evaluate left and right subtrees based on PEMDAS rules
+            if operator == '**':
+                left_value = self._pemdas_recursive(tree.getLeftTree())
+                right_value = self._pemdas_recursive(tree.getRightTree())
+                return left_value ** right_value
+            elif operator in ['*', '/']:
+                left_value = self._pemdas_recursive(tree.getLeftTree())
+                right_value = self._pemdas_recursive(tree.getRightTree())
+                if operator == '*':
+                    return left_value * right_value
+                elif operator == '/':
+                    return left_value / right_value
+            elif operator in ['+', '-']:
+                left_value = self._pemdas_recursive(tree.getLeftTree())
+                right_value = self._pemdas_recursive(tree.getRightTree())
+                if operator == '+':
+                    return left_value + right_value
+                elif operator == '-':
+                    return left_value - right_value
+
+            # If it's a variable or a number, return its value
+            return self._get_variable_value(operator, left_value, right_value)
     
