@@ -85,7 +85,14 @@ class Utility:
                         print("Invalid bracket usage. Please check your brackets.")
                         Utility.validateVarName()
 
-                    return var, exp  
+                    # return var, exp 
+
+                    # Ensure that the expression contains at least one pair of brackets
+                    elif '(' not in exp or ')' not in exp:
+                        print("Invalid expression. Please include at least one pair of brackets.")
+                        Utility.validateVarName()
+
+                    return var, exp 
                 
                 else: 
                     Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
@@ -94,17 +101,17 @@ class Utility:
                 print('Invalid input. Please enter a valid statement.')
 
 
-    left_bracket = '('
-    right_bracket = ')'   
 
     def checkBrackets(expression):
         stack = []
+        left_bracket = '('
+        right_bracket = ')'   
 
         for char in expression:
-            if char == Utility.left_bracket:
+            if char == left_bracket:
                 stack.append(char)
-            elif char == Utility.right_bracket:
-                if not stack or stack.pop() != Utility.left_bracket:
+            elif char == right_bracket:
+                if not stack or stack.pop() != left_bracket:
                     return False
 
         return not stack  # Stack should be empty if brackets are balanced
