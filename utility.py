@@ -4,6 +4,7 @@
 
 # Imports
 import string 
+from tokenization import Tokenization
 
 class Utility:
  
@@ -29,6 +30,32 @@ class Utility:
             return input(prompt)
 
 # -------------------------------------Validate--------------------------------------
+    # def validateVarName():
+    #     while True: 
+    #         try: 
+    #             # Ask for the user input 
+    #             statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
+
+    #             # spilt the var and experession
+    #             var, exp = statement.split('=', 1)  
+
+    #             # Remove spaces from var and exp and check each character
+    #             var = var.strip()
+    #             cleaned_exp = exp.replace(" ", "")
+
+    #             if len(var) == 1:
+    #                 for char in cleaned_exp:
+    #                     if not char.isdigit() and char not in ['(','+','-','/','*',')']: 
+    #                         print(f"At least one character in {exp} is not numeric or is not '(' or ')'")
+    #                         Utility.validateVarName()
+
+    #                 return var, exp 
+                
+    #             else: 
+    #                 Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
+    #         except ValueError:
+    #             print('Invalid input. Please enter a valid statement.')
+        
     def validateVarName():
         while True: 
             try: 
@@ -43,14 +70,30 @@ class Utility:
                 cleaned_exp = exp.replace(" ", "")
 
                 if len(var) == 1:
-                    for char in cleaned_exp:
-                        if not char.isdigit() and char not in ['(','+','-','/','*',')']: 
-                            print(f"At least one character in {exp} is not numeric or is not '(' or ')'")
-                            Utility.validateVarName()
+                    
+                    # Check for incomplete statements
+                    if exp.endswith(('+','-','*','/')):
+                        print('Invalid incomplete statement. Please enter a complete assignment.')
+                        Utility.validateVarName()
+
+                    elif len(exp) == 0:
+                        print('Invalid incomplete statement. Please enter a complete assignment.')
+                        Utility.validateVarName()
+
+                    # for char in cleaned_exp:
+                    #     # if not number and dont have operators (ask them to retype the statement)
+                    #     if not char.isdigit() and char not in ['(','+','-','/','*',')']: 
+                    #         print(f"At least one character in {exp} is not numeric or not an operator")
+                    #         Utility.validateVarName()
+                    
+                    # Tokenization.tokenize(exp)
+                    # print(f"At least one character in {exp} is not numeric/operator/letter")
+                    # Utility.validateVarName()
 
                     return var, exp 
                 
                 else: 
                     Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
+
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
