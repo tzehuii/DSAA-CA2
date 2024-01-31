@@ -80,20 +80,51 @@ class Utility:
                         print('Invalid incomplete statement. Please enter a complete assignment.')
                         Utility.validateVarName()
 
-                    # for char in cleaned_exp:
-                    #     # if not number and dont have operators (ask them to retype the statement)
-                    #     if char not in ['(','+','-','/','*',')']: 
-                    #         print(f"At least one character in {exp} is not numeric or not an operator")
-                    #         Utility.validateVarName()
-                    
-                    # Tokenization.tokenize(exp)
-                    # print(f"At least one character in {exp} is not numeric/operator/letter")
-                    # Utility.validateVarName()
+                    # Check for valid brackets
+                    elif not Utility.checkBrackets(exp):
+                        print("Invalid bracket usage. Please check your brackets.")
+                        Utility.validateVarName()
 
-                    return var, exp 
+                    return var, exp  
                 
                 else: 
                     Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
 
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
+
+
+    left_bracket = '('
+    right_bracket = ')'   
+
+    def checkBrackets(expression):
+        stack = []
+
+        for char in expression:
+            if char == Utility.left_bracket:
+                stack.append(char)
+            elif char == Utility.right_bracket:
+                if not stack or stack.pop() != Utility.left_bracket:
+                    return False
+
+        return not stack  # Stack should be empty if brackets are balanced
+
+
+
+# # checking of brackets
+# class Brackets:
+#     left = '('
+#     right = ')'
+#     def __init__(self):
+#         self.brackets = []
+#     def isvalid(self):
+#         return len(self.brackets) == 0
+#     def add(self, b):
+#         if b in Brackets.left:
+#             self.brackets.append(b)
+#         else:
+#             if b in Brackets.right:
+#                 i = Brackets.right.index(b)
+#                 if self.brackets[-1] != Brackets.left[i]:
+#                     raise ValueError 
+#                 self.brackets.pop(-1)
