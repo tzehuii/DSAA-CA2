@@ -72,23 +72,23 @@ class Tokenization:
 
         return tokens
     
-    # not sure if this is what a regex does 
-    def tokenize_with_regex(exp):
-        # Define regular expressions for numbers, operators, and parentheses
-        # number_pattern = r'\b\d+(\.\d+)?\b'
-        number_pattern = r'\b\d+(\.\d+)?\b'
-        operator_pattern = r'[-+*/^()]'
+    # # not sure if this is what a regex does 
+    # def tokenize_with_regex(exp):
+    #     # Define regular expressions for numbers, operators, and parentheses
+    #     # number_pattern = r'\b\d+(\.\d+)?\b'
+    #     number_pattern = r'\b\d+(\.\d+)?\b'
+    #     operator_pattern = r'[-+*/^()]'
         
-        # Combine the patterns into a single pattern
-        combined_pattern = f'{number_pattern}|{operator_pattern}'
+    #     # Combine the patterns into a single pattern
+    #     combined_pattern = f'{number_pattern}|{operator_pattern}'
 
-        # Find all matches using the regular expression
-        matches = re.findall(combined_pattern, exp)
+    #     # Find all matches using the regular expression
+    #     matches = re.findall(combined_pattern, exp)
 
-        # Filter out empty strings from the matches
-        tokens = [match for match in matches if match]
+    #     # Filter out empty strings from the matches
+    #     tokens = [match for match in matches if match]
 
-        return tokens
+    #     return tokens
 
 # # Example usage:
 # expression = "( -1 ** 9) + - 3)"

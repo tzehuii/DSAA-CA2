@@ -62,30 +62,64 @@ class parseTree():
                 raise ValueError
         return tree
     
-    # Recursively evaluate the parse tree
+    # # Recursively evaluate the parse tree
+    # def evaluate(self, tree):
+    #     leftTree = tree.getLeftTree()
+    #     rightTree = tree.getRightTree()
+    #     op = tree.getKey()
+
+    #     # evaluate base on the pemdas rule
+    #     if leftTree is not None and rightTree is not None: 
+    #         if op == '+':
+    #             return self.evaluate(leftTree) + self.evaluate(rightTree)
+    #         elif op == '-':
+    #             return self.evaluate(leftTree) - self.evaluate(rightTree)
+    #         elif op == '*':
+    #             return self.evaluate(leftTree) * self.evaluate(rightTree)
+    #         elif op == '/':
+    #             try:
+    #                 return self.evaluate(leftTree) / self.evaluate(rightTree)
+    #             except ZeroDivisionError:
+    #                 print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
+    #         elif op == '**':
+    #             return self.evaluate(leftTree) ** self.evaluate(rightTree)
+    #     else:
+    #         return tree.getKey()
+
+
+   # Recursively evaluate the parse tree - edited
     def evaluate(self, tree):
         leftTree = tree.getLeftTree()
         rightTree = tree.getRightTree()
         op = tree.getKey()
-
+        
         # evaluate base on the pemdas rule
         if leftTree is not None and rightTree is not None: 
+
+            leftValue = self.evaluate(leftTree)
+            rightValue = self.evaluate(rightTree)
+
+            # Check if either operand is a string (alphabet)
+            if isinstance(leftValue, str) or isinstance(rightValue, str):
+                # If so, return None
+                return None
+            
             if op == '+':
-                return self.evaluate(leftTree) + self.evaluate(rightTree)
+                return leftValue + rightValue
             elif op == '-':
-                return self.evaluate(leftTree) - self.evaluate(rightTree)
+                return leftValue - rightValue
             elif op == '*':
-                return self.evaluate(leftTree) * self.evaluate(rightTree)
+                return leftValue * rightValue
             elif op == '/':
                 try:
-                    return self.evaluate(leftTree) / self.evaluate(rightTree)
+                    return leftValue / rightValue
                 except ZeroDivisionError:
                     print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
             elif op == '**':
-                return self.evaluate(leftTree) ** self.evaluate(rightTree)
+                return leftValue ** rightValue
         else:
             return tree.getKey()
-
+        
     
         
 # reference for pemdas

@@ -69,16 +69,31 @@ class Menu:
 
             print()
 
-    # Option 1
-    def option1(self):
-        var, exp = Utility.validateVarName()
+    # # Option 1
+    # def option1(self):
+    #     var, exp = Utility.validateVarName()
 
-        # Modifying existing assignment statement 
-        if var in self.statement_storage:
-            self.statement_storage[var] = exp
-        else:
-            # Store the variables and expression in a dictionary 
-            self.statement_storage[var] = exp
+    #     # Modifying existing assignment statement 
+    #     if var in self.statement_storage:
+    #         self.statement_storage[var] = exp
+    #     else:
+    #         # Store the variables and expression in a dictionary 
+    #         self.statement_storage[var] = exp
+            
+
+    def option1(self):
+        validated_input = Utility.validateVarName()
+
+        # If the validation is successful, update the class attributes
+        if validated_input:
+            var, exp = validated_input
+
+            # Modifying existing assignment statement
+            if var in self.statement_storage:
+                self.statement_storage[var] = exp
+            else:
+                # Store the variables and expression in a dictionary
+                self.statement_storage[var] = exp
 
     # Option 2
     def option2(self):
@@ -104,11 +119,20 @@ class Menu:
 
     # Option 3
     def option3(self):
-        exp = '( 2 + ( 4 * 5 ) )'
-        tree = parseTree.buildParseTree(exp)
-        parser_instance = parseTree(tree)
-        print(f'The expression: {exp} evaluates to: {parser_instance.evaluate(tree)}')
+        var, exp = Utility.validateVarName('Please enter the variable you want to evaluate:\n')
+        # Utility.userInput()
+        print('\nExpression Tree:')
 
+        # build the parse tree for evaluation + parse tree
+        tree = parseTree(exp)
+
+        # evaluate the statement  
+        evaluated_exp = tree.result
+
+        # print the parse tree out 
+        tree.printPreorder(0)
+        print(f'Value for variable \'{var}\' is {evaluated_exp}')
+        
     # Option 8
     def option8(self):
         print('\nBye, thanks for using ST1507 DSAA: Evaluating & Sorting Assignment Statements')
