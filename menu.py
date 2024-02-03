@@ -13,7 +13,6 @@ class Menu:
     def __init__(self):
         self.statement_storage = {}
         self.printOutline()
-        # Utility.userInput()
         self.selection()
 
      # Print the outline 
@@ -80,8 +79,6 @@ class Menu:
         else:
             # Store the variables and expression in a dictionary 
             self.statement_storage[var] = exp
-
-    # need to validate option 1 again 
 
     # Option 2
     def option2(self):

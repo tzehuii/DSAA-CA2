@@ -6,12 +6,13 @@
 from stack import Stack
 from binaryTree import BinaryTree
 from tokenization import Tokenization
+import string
 
 class parseTree():
     def __init__(self, exp):
         self.exp = exp 
         self.tree = self.buildParseTree(exp)
-        self.result = self.evaluate(self.tree)
+        self.result = self.evaluate(self.tree) 
 
     # This tokenisation only look at the spaces in between
     def buildParseTree(self, exp):
@@ -42,24 +43,31 @@ class parseTree():
                 
             # RULE 3: If token is number, set key of the current node 
             # to that number and return to parent
-            elif t not in ['+', '-', '*', '/', '**',')'] : 
-                currentTree.setKey(int(t)) #integer (cause it to not work with float)
+            elif t not in ['+', '-', '*', '/', ')'] : 
+                currentTree.setKey(int(t)) 
                 parent = stack.pop()
                 currentTree = parent
+
+            # RULE 4: If token is variable / float, set key of the current node 
+            elif t not in ['+', '-', '*', '/', ')','**']:
+                if t.isalpha():
+                    currentTree.setKey(t)
+                else:
+                    currentTree.setKey(float(t))
                 
-            # RULE 4: If token is ')' go to parent of current node
+            # RULE 5: If token is ')' go to parent of current node
             elif t == ')':
                 currentTree = stack.pop()
             else:
                 raise ValueError
         return tree
     
-     # Recursively evaluate the parse tree
+    # Recursively evaluate the parse tree
     def evaluate(self, tree):
         leftTree = tree.getLeftTree()
         rightTree = tree.getRightTree()
         op = tree.getKey()
-        
+
         # evaluate base on the pemdas rule
         if leftTree is not None and rightTree is not None: 
             if op == '+':
@@ -77,10 +85,9 @@ class parseTree():
                 return self.evaluate(leftTree) ** self.evaluate(rightTree)
         else:
             return tree.getKey()
+
+    
         
-
-
-
 # reference for pemdas
 
     def pemdas(self):
