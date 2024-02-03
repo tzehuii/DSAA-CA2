@@ -4,7 +4,7 @@
 
 # Imports
 import string 
-from tokenization import Tokenization
+import os
 
 class Utility:
  
@@ -28,55 +28,25 @@ class Utility:
             return enter
         else:
             return input(prompt)
+        
+# -------------------------Commonly used (basic) functioms--------------------------
+
+    # Read the content of the file
+    def readFile(filePath): 
+        with open(filePath, 'r') as file:
+            return file.read()
+
+    # Write the output to a new file
+    def writeFile(filePath, content):
+        with open(filePath, 'w') as file:
+            return file.write(content)        
+    
+    # Ensure that the output file path is in the folder
+    def outputFilePathinFolder(folderName, fileName):
+        return os.path.join(folderName, fileName)
 
 # -------------------------------------Validate--------------------------------------
-        
-    # # for option 1 !!
-    # def validateVarName():
-    #     while True: 
-    #         try: 
-    #             # Ask for the user input 
-    #             statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
-
-    #             # spilt the var and experession
-    #             var, exp = statement.split('=', 1)  
-
-    #             # Remove spaces from var and exp and check each character
-    #             var = var.strip()
-    #             cleaned_exp = exp.replace(" ", "")
-
-    #             if len(var) == 1:
-                    
-    #                 # Check for incomplete statements
-    #                 if exp.endswith(('+','-','*','/')):
-    #                     print('Invalid incomplete statement. Please enter a complete assignment.')
-    #                     Utility.validateVarName()
-
-    #                 elif len(exp) == 0:
-    #                     print('Invalid incomplete statement. Please enter a complete assignment.')
-    #                     Utility.validateVarName()
-
-    #                 # Check for valid brackets
-    #                 elif not Utility.checkBrackets(exp):
-    #                     print("Invalid bracket usage. Please check your brackets.")
-    #                     Utility.validateVarName()
-
-    #                 # return var, exp 
-
-    #                 # Ensure that the expression contains at least one pair of brackets
-    #                 elif '(' not in exp or ')' not in exp:
-    #                     print("Invalid expression. Please include at least one pair of brackets.")
-    #                     Utility.validateVarName()
-
-    #                 return var, exp 
-                
-    #             else: 
-    #                 Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
-
-    #         except ValueError:
-    #             print('Invalid input. Please enter a valid statement.')
-
-
+    
     def validateVarName(): # edited
         while True: 
             try: 
@@ -124,6 +94,34 @@ class Utility:
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
 
+    # validate the input
+    def validateVariable(prompt):
+        while True:
+            try:
+                # Ask for the user input
+                var = Utility.userInput(prompt)
+
+                if var == None:
+                    print('Please key in a varaible to use this option')
+                    Utility.validateVariable()
+                elif var.isnumeric:
+                    print('Please key in letter/letters to use this option')
+                    Utility.validateVariable()
+                elif len(var) == 1:
+                    return var
+                            
+            except ValueError:
+                print('Invalid input. Please enter a valid statement.')
+    
+    # Get and ensure that file path is valid and not empty
+    def getFile(filePathPrompt):
+        while True:
+            filePath = Utility.userInput(filePathPrompt)
+
+            if Utility.__validateFilePath(filePath):
+                return filePath
+            else:
+                print('Invalid input. Please enter a valid file path.')
 
 
     def checkBrackets(expression):
@@ -139,5 +137,6 @@ class Utility:
                     return False
 
         return not stack  # Stack should be empty if brackets are balanced
+    
 
 

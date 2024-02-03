@@ -115,7 +115,8 @@ class parseTree():
                 try:
                     return leftValue / rightValue
                 except ZeroDivisionError:
-                    print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
+                    # print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
+                    pass
             elif op == '**':
                 return leftValue ** rightValue
         

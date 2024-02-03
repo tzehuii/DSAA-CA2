@@ -120,10 +120,9 @@ class Menu:
 
             # print out the statement and the results
             if exp is not None:
-                print(f'{var} = {correct_exp} --> {evaluated_exp}\n')
+                print(f'{var} = {correct_exp} --> {evaluated_exp}')
             else:
-                print(f'{var} = {correct_exp} -->None\n')
-
+                print(f'{var} = {correct_exp} -->None')
 
     # Option 3
     def option3(self):
@@ -141,6 +140,14 @@ class Menu:
         # print the parse tree out 
         parsedTree.tree.printInorder(0)
         print(f'Value for variable \'{var}\' is {evaluated_exp}')
+
+    # Option 4
+    def option4(self):
+        # Get the encyrpted and reference file
+        filePath = Utility.getFile('Please enter input file:')
+
+        print('\nCURRENT ASSIGNMENTS:')
+        print('*'*20) 
 
     # Option 8
     def option8(self):
