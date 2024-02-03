@@ -119,18 +119,19 @@ class Menu:
 
     # Option 3
     def option3(self):
-        var, exp = Utility.validateVarName('Please enter the variable you want to evaluate:\n')
+        var = Utility.userInput('Please enter the variable you want to evaluate:\n')
         # Utility.userInput()
         print('\nExpression Tree:')
 
-        # build the parse tree for evaluation + parse tree
-        tree = parseTree(exp)
+        for var, exp in self.statement_storage.items():
+            # build the parse tree for evaluation + parse tree
+            parsedTree = parseTree(exp)
 
-        # evaluate the statement  
-        evaluated_exp = tree.result
-
+            # evaluate the statement  
+            evaluated_exp = parsedTree.result
+        
         # print the parse tree out 
-        tree.printPreorder(0)
+        parsedTree.tree.printInorder(0)
         print(f'Value for variable \'{var}\' is {evaluated_exp}')
         
     # Option 8
