@@ -5,7 +5,7 @@
 # Imports
 from utility import Utility
 from parseTree import parseTree
-
+from sort import Sort
 
 class Menu:
 
@@ -37,7 +37,7 @@ class Menu:
         print('\t 5. Sort assignment statements')
         print('\t 6. Additional (Jace)')
         print('\t 7. Additional (Jace)')
-        print('\t 8. Additional (Tzehui)')
+        print('\t 8. Sorting Game (Tzehui)')
         print('\t 9. Additional (Tzehui)')
         print('\t 10. Exit')
 
@@ -204,6 +204,66 @@ class Menu:
         outputFile = Utility.validateOutFile("Please enter output file", self.sorted_statements, self.variable_values)
         print(f"Output file '{outputFile}' created successfully.")
 
-    # Option 10
+    # Additional Features 1 (Jace)!
+    def option6(self):
+        print('orh hor nvr do strike +1')
+
+    # Additional Features 2 (Jace)!
+    def option7(self):
+        print('strike +2!')
+
+
+    # Additional Features 3 (Tzehui)! 
+    def option8(self):
+        # Introduction to the game
+        print("\nWelcome to the Sorting Game!")
+        print("This game is designed to help you understand various sorting algorithms and their performance. You can interactively observe how different algorithms work on a given set of data.\n")
+        Utility.userInput()
+
+        # Ask the user to choose an option
+        print('\nChoose an option:\n1. Input your own data\n2. Generate random data\n')
+        option = int(Utility.userInput('Enter your choice: '))
+
+        if option == 1:
+            # Get the data from the user
+            data = Utility.userInput('\nEnter a list of elements (split by \',\'): ')
+            elements = data.split(',')
+            original_element = elements.copy()
+
+        elif option == 2:
+            # Generate random data based on user input (strings)
+            size = int(input("\nEnter the size of the random data: "))
+            str_length = int(input("Enter the length of each random string: "))
+            elements = Utility.generateRandomData(size, str_length)
+            original_element = elements.copy()
+
+        else:
+            print('Invalid option! Please try again')
+
+        # Get the user input for the sorting algorithm
+        print('\nChoose a sorting algorithm:\n1. Bubble Sort\n2. Merge Sort')
+        choice = int(Utility.userInput('Enter your choice: '))
+
+        # Create an instance of the Sort class
+        sort = Sort()
+
+        # Perform sorting based on the choice
+        if choice == 1:
+            sort.bubbleSort(elements)
+        elif choice == 2:
+            sort.mergeSort(elements)
+        else:
+            print('Invalid option! Please try again')
+
+        # Display the results
+        print(f'\nOriginal List: {original_element}')
+        print(f'Sorted List: {elements}')
+        print(f'Number of steps: {sort.steps}')
+
+    # Additional Features 4 (Tzehui)!
+    def option9(self):
+        print('I CONTINUE TMRW!')
+
+    # Option 10 (EXIT!!!)
     def option10(self):
         print('\nBye, thanks for using ST1507 DSAA: Evaluating & Sorting Assignment Statements')

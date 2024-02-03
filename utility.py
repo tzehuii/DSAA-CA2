@@ -5,6 +5,7 @@
 # Imports
 import string 
 import os
+import random
 
 class Utility:
  
@@ -226,6 +227,14 @@ class Utility:
                     return False
 
         return not stack  # Stack should be empty if brackets are balanced
+    
+    # Generate Random Strings of Data
+    def generateRandomData(size, str_length):
+        characters = string.ascii_letters + string.digits
+        data = [''.join(random.choice(characters) for _ in range(str_length)) for _ in range(size)]
+        random.shuffle(data)  # Shuffle the list to ensure it's not already sorted
+        return data
+
     
 
 
