@@ -16,7 +16,7 @@ class Menu:
         self.printOutline()
         self.selection()
 
-     # Print the outline 
+    # Print the outline 
     def printOutline(self):
         print('\n' + '*' * 65)
         print('* ST1507 DSAA: Evaluating & Sorting Assignment Statements' + '\t' + '*')
@@ -35,9 +35,11 @@ class Menu:
         print('\t 3. Evaluate a single variable')
         print('\t 4. Read assignment statements from file')
         print('\t 5. Sort assignment statements')
-        print('\t 6. Additional (individual)')
-        print('\t 7. Additional (individual)')
-        print('\t 8. Exit')
+        print('\t 6. Additional (Jace)')
+        print('\t 7. Additional (Jace)')
+        print('\t 8. Additional (Tzehui)')
+        print('\t 9. Additional (Tzehui)')
+        print('\t 10. Exit')
 
     # Functions for each option the user choose
     def selection(self):
@@ -62,8 +64,12 @@ class Menu:
                 self.option6()
             elif choice == 7:
                 self.option7()
-            elif choice ==8:
+            elif choice == 8:
                 self.option8()
+            elif choice == 9:
+                self.option9()
+            elif choice == 10:
+                self.option10()
                 return
             else:
                 print("Invalid operation. Please try again and enter the correct choices.")
@@ -97,6 +103,7 @@ class Menu:
             # Iterate through sorted statements
             for var, exp in sorted_statements:
                 if var not in self.variable_values:
+                    
                     tree = parseTree(exp, self.variable_values)
                     new_value = tree.result
 
@@ -126,7 +133,9 @@ class Menu:
         var = Utility.userInput('Please enter the variable you want to evaluate:\n')
         print('\nExpression Tree:')
 
-        for var, exp in self.statement_storage.items():
+        if var in self.statement_storage:
+            exp = self.statement_storage[var]
+
             # build the parse tree for evaluation + parse tree
             parsedTree = parseTree(exp, self.variable_values)
             
@@ -138,8 +147,10 @@ class Menu:
 
             # print the parse tree out 
             parsedTree.tree.printInorder(0)
-            print(f'Value for variable \'{var}\' is {evaluated_exp}')
-            
+            print(f'Value for variable \'{var}\' is {evaluated_exp}')       
+        else:
+            print(f'Variable \'{var}\' not found in statement storage.')
+
     # Option 4
     def option4(self):
         # Get and Read the file
@@ -185,6 +196,6 @@ class Menu:
     def option5(self):
         print("option5")
 
-    # Option 8
-    def option8(self):
+    # Option 10
+    def option10(self):
         print('\nBye, thanks for using ST1507 DSAA: Evaluating & Sorting Assignment Statements')

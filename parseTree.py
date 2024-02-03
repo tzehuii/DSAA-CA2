@@ -101,11 +101,11 @@ class parseTree():
             
             # Replace variable names with their values
             if isinstance(leftValue, str) and leftValue in var_storage_statement:
-                print("HERE1")
+                # print("HERE1")
                 leftValue = var_storage_statement[leftValue]
 
             if isinstance(rightValue, str) and rightValue in var_storage_statement:
-                print("HERE2")
+                # print("HERE2")
                 rightValue = var_storage_statement[rightValue]
             
             if op == '+':

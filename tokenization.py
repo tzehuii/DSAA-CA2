@@ -14,62 +14,66 @@ class Tokenization:
 
         is_unary_minus = True # Flag to track unary minus
 
-        for char in exp:
+        try:
 
-            # Skip whitespace characters
-            if char.isspace():
-                continue
-            
-            # alnum returns "true" is the char is a letter or a number
-            if char.isalnum() or char == '.':
-                current_token += char # char is appended into current_token variable
-                is_unary_minus = False  # Reset the unary_minus flag 
-            
-            elif char == '-' and is_unary_minus:
-                # Handle unary minus
-                current_token += char
-                is_unary_minus = False
+            for char in exp:
 
-            elif char in operators:
-                # Handle operators
-                if current_token:
-                    tokens.append(current_token)
-                    current_token = ''
+                # Skip whitespace characters
+                if char.isspace():
+                    continue
+                
+                # alnum returns "true" is the char is a letter or a number
+                if char.isalnum() or char == '.':
+                    current_token += char # char is appended into current_token variable
+                    is_unary_minus = False  # Reset the unary_minus flag 
+                
+                elif char == '-' and is_unary_minus:
+                    # Handle unary minus
+                    current_token += char
+                    is_unary_minus = False
 
-                if tokens and tokens[-1] == char:
-                    # Combine consecutive asterisks
-                    tokens[-1] = '**'
-                else:
+                elif char in operators:
+                    # Handle operators
+                    if current_token:
+                        tokens.append(current_token)
+                        current_token = ''
+
+                    if tokens and tokens[-1] == char:
+                        # Combine consecutive asterisks
+                        tokens[-1] = '**'
+                    else:
+                        tokens.append(char)
+
+                    is_unary_minus = True  # Reset the unary_minus flag
+
+                elif char == '(':
+                    # Handle opening parenthesis
+                    if current_token:
+                        tokens.append(current_token)
+                        current_token = ''
+
+                    tokens.append(char)
+                    is_unary_minus = True  # Reset the unary_minus flag
+
+                elif char == ')':
+                    # Handle closing parenthesis
+                    if current_token:
+                        tokens.append(current_token)
+                        current_token = ''
+
                     tokens.append(char)
 
-                is_unary_minus = True  # Reset the unary_minus flag
+                else:
+                    # Raise an error for invalid characters
+                    raise ValueError(f"Invalid character: {char}")
+                
+            if current_token:
+                tokens.append(current_token)
 
-            elif char == '(':
-                # Handle opening parenthesis
-                if current_token:
-                    tokens.append(current_token)
-                    current_token = ''
-
-                tokens.append(char)
-                is_unary_minus = True  # Reset the unary_minus flag
-
-            elif char == ')':
-                # Handle closing parenthesis
-                if current_token:
-                    tokens.append(current_token)
-                    current_token = ''
-
-                tokens.append(char)
-
-            else:
-                # Raise an error for invalid characters
-                raise ValueError(f"Invalid character: {char}")
-
-        if current_token:
-            tokens.append(current_token)
+        except ValueError as e:
+            print(f"\nError during tokenization: {e}")
 
         return tokens
-                
                 
     # # not sure if this is what a regex does 
     # def tokenize_with_regex(exp):

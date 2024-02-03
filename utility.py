@@ -88,10 +88,9 @@ class Utility:
                 # Remove spaces from var and exp and check each character
                 var = var.strip()
                 exp = exp.strip()
-                # cleaned_exp = exp.replace(" ", "")
 
                 if var.isalpha() and len(var) >= 1:  # Check if var contains only alphabets and has more than or equal to one letter
-                                        # Check if exp is not empty
+                                    # Check if exp is not empty
                     if exp:
                     
                         # Check for incomplete statements without any of the following operators
@@ -103,11 +102,6 @@ class Utility:
                         if exp.endswith(('+','-','*','/','**')):
                             print('Invalid incomplete statement. Please enter a complete assignment.')
                             continue
-
-                        # shld be not needed
-                        # elif len(exp) == 0:
-                        #     print('Invalid incomplete statement. Please enter a complete assignment.')
-                        #     continue
 
                         # Check for valid brackets
                         elif not Utility.checkBrackets(exp):
@@ -158,6 +152,8 @@ class Utility:
             return False
         except OSError:
             return False 
+
+# -------------------------------------Others--------------------------------------
 
     # Check the brackets 
     def checkBrackets(expression):
