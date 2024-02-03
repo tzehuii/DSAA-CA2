@@ -130,16 +130,22 @@ class Menu:
         # Utility.userInput()
         print('\nExpression Tree:')
 
-        for var, exp in self.statement_storage.items():
+        # Create an empty dictionary to store variable values
+        variable_values = {}
+
+        for key, exp in self.statement_storage.items():
             # build the parse tree for evaluation + parse tree
-            parsedTree = parseTree(exp)
+            parsedTree = parseTree(exp, variable_values)
+            
+            # Store the result in variable_values
+            variable_values[key] = parsedTree.result
 
             # evaluate the statement  
             evaluated_exp = parsedTree.result
-        
-        # print the parse tree out 
-        parsedTree.tree.printInorder(0)
-        print(f'Value for variable \'{var}\' is {evaluated_exp}')
+
+            # print the parse tree out 
+            parsedTree.tree.printInorder(0)
+            print(f'Value for variable \'{key}\' is {evaluated_exp}')
 
     # Option 4
     def option4(self):
