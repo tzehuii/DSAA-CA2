@@ -87,39 +87,45 @@ class Utility:
 
                 # Remove spaces from var and exp and check each character
                 var = var.strip()
-                cleaned_exp = exp.replace(" ", "")
+                exp = exp.strip()
+                # cleaned_exp = exp.replace(" ", "")
 
                 if var.isalpha() and len(var) >= 1:  # Check if var contains only alphabets and has more than or equal to one letter
+                                        # Check if exp is not empty
+                    if exp:
                     
-                    # Check for incomplete statements without any of the following operators
-                    if not any(op in exp for op in ['+', '-', '*', '/', '**']):
-                        print('Invalid statement. Please include at least one of the operators: +, -, *, /, **')
-                        Utility.validateVarName()
+                        # Check for incomplete statements without any of the following operators
+                        if not any(op in exp for op in ['+', '-', '*', '/', '**']):
+                            print('Invalid statement. Please include at least one of the operators: +, -, *, /, **')
+                            continue
 
-                    # Check for incomplete statements
-                    if exp.endswith(('+','-','*','/','**')):
-                        print('Invalid incomplete statement. Please enter a complete assignment.')
-                        Utility.validateVarName()
+                        # Check for incomplete statements
+                        if exp.endswith(('+','-','*','/','**')):
+                            print('Invalid incomplete statement. Please enter a complete assignment.')
+                            continue
 
-                    elif len(exp) == 0:
-                        print('Invalid incomplete statement. Please enter a complete assignment.')
-                        Utility.validateVarName()
+                        # shld be not needed
+                        # elif len(exp) == 0:
+                        #     print('Invalid incomplete statement. Please enter a complete assignment.')
+                        #     continue
 
-                    # Check for valid brackets
-                    elif not Utility.checkBrackets(exp):
-                        print("Invalid bracket usage. Please check your brackets.")
-                        Utility.validateVarName()
+                        # Check for valid brackets
+                        elif not Utility.checkBrackets(exp):
+                            print("Invalid bracket usage. Please check your brackets.")
+                            continue
 
-                    # Ensure that the expression contains at least one pair of brackets
-                    elif '(' not in exp or ')' not in exp:
-                        print("Invalid expression. Please include at least one pair of brackets.")
-                        Utility.validateVarName()
+                        # Ensure that the expression contains at least one pair of brackets
+                        elif '(' not in exp or ')' not in exp:
+                            print("Invalid expression. Please include at least one pair of brackets.")
+                            continue
 
-                    return var, exp 
+                        return var, exp 
                 
-                else: 
-                    Utility.userInput('Please key in a statement with 1 variable at the start (eg. a=(1+2))')
-
+                    else:
+                        print('Invalid incomplete statement. Please enter a complete assignment.')
+                else:
+                    print('Please key in a statement with 1 variable at the start (e.g., a=(1+2))')
+                    
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
 

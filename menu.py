@@ -69,19 +69,8 @@ class Menu:
                 print("Invalid operation. Please try again and enter the correct choices.")
 
             print()
-
-    # # Option 1
-    # def option1(self):
-    #     var, exp = Utility.validateVarName()
-
-    #     # Modifying existing assignment statement 
-    #     if var in self.statement_storage:
-    #         self.statement_storage[var] = exp
-    #     else:
-    #         # Store the variables and expression in a dictionary 
-    #         self.statement_storage[var] = exp
             
-
+    # Option 1
     def option1(self):
         validated_input = Utility.validateVarName()
 
@@ -98,7 +87,7 @@ class Menu:
 
     # Option 2
     def option2(self):
-        # Sort the assignment statements alphabetically
+        # Sort the assignment statements alphabetically ## CHANGE THIS TO A CLASS??
         sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
 
         while True:
@@ -131,7 +120,7 @@ class Menu:
             else:
                 print(f'{var} = {correct_exp} => None')
 
-    # Option 3
+    # Option 3 -- evaluates all the variables 
     def option3(self):
         # Get the user input
         var = Utility.userInput('Please enter the variable you want to evaluate:\n')
@@ -192,6 +181,9 @@ class Menu:
                 print(f'{var} = {correct_exp} => {evaluated_exp}')
             else:
                 print(f'{var} = {correct_exp} => None')
+
+    def option5(self):
+        print("option5")
 
     # Option 8
     def option8(self):
