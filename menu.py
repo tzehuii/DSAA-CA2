@@ -100,13 +100,20 @@ class Menu:
         print('\nCURRENT ASSIGNMENTS:')
         print('*'*20) 
 
+
+        # Create an empty dictionary to store variable values
+        variable_values = {}
+
         # to get the variable and expression for evaluation 
         for var, exp in self.statement_storage.items():
             # build the parse tree for evaluation 
-            tree = parseTree(exp)
+            tree = parseTree(exp, variable_values)
 
             # evaluate the statement  
             evaluated_exp = tree.result
+
+            # Store the result in variable_values
+            variable_values[var] = evaluated_exp
 
             # strip the space to print nicely for aesthetics  purpose 
             correct_exp = exp.replace(" ", "")
@@ -116,6 +123,7 @@ class Menu:
                 print(f'{var} = {correct_exp} --> {evaluated_exp}\n')
             else:
                 print(f'{var} = {correct_exp} -->None\n')
+
 
     # Option 3
     def option3(self):
@@ -133,7 +141,7 @@ class Menu:
         # print the parse tree out 
         parsedTree.tree.printInorder(0)
         print(f'Value for variable \'{var}\' is {evaluated_exp}')
-        
+
     # Option 8
     def option8(self):
         print('\nBye, thanks for using ST1507 DSAA: Evaluating & Sorting Assignment Statements')
