@@ -37,11 +37,11 @@ class Tokenization:
                     current_token = ''
 
                 if tokens and tokens[-1] == char:
-                    # Handle consecutive operators
-                    print(f"Warning: Consecutive operators detected: {char}{char}. Skipping one.")
-                    continue
+                    # Combine consecutive asterisks
+                    tokens[-1] = '**'
+                else:
+                    tokens.append(char)
 
-                tokens.append(char)
                 is_unary_minus = True  # Reset the unary_minus flag
 
             elif char == '(':
