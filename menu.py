@@ -161,14 +161,15 @@ class Menu:
         Utility.processAssignmentStatements(readFile, self.statement_storage)
 
         # Sort the assignment statements alphabetically
-        sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
+        # sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
+        self.sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
 
         while True:
             # Store the current variable values to check for changes later
             current_values = self.variable_values.copy()
 
             # Iterate through sorted statements
-            for var, exp in sorted_statements:
+            for var, exp in self.sorted_statements:
                 if var not in self.variable_values:
                     tree = parseTree(exp, self.variable_values)
                     new_value = tree.result
@@ -185,7 +186,7 @@ class Menu:
         print('*' * 20)
 
         # Print the final sorted statements
-        for var, exp in sorted_statements:
+        for var, exp in self.sorted_statements:
             evaluated_exp = self.variable_values.get(var, None)
             correct_exp = exp.replace(" ", "")
             if evaluated_exp is not None:
@@ -194,7 +195,14 @@ class Menu:
                 print(f'{var} = {correct_exp} => None')
 
     def option5(self):
-        print("option5")
+        # Check if sorted_statements is available
+        if self.sorted_statements is None:
+            print("Sorted statements are not available. Please run option 4 first.")
+            return
+
+        # Pass self.variable_values to Utility.validateOutFile
+        outputFile = Utility.validateOutFile("Please enter output file", self.sorted_statements, self.variable_values)
+        print(f"Output file '{outputFile}' created successfully.")
 
     # Option 10
     def option10(self):

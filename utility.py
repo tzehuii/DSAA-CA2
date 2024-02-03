@@ -152,7 +152,64 @@ class Utility:
             return False
         except OSError:
             return False 
+        
+    # write to output file
+    def validateOutFile(message, content, variable_values):
+        while True:
+            # Get the output file path from the user
+            output_file_path = input(f'{message}: ')
 
+            # Check if the output file already exists
+            if os.path.exists(output_file_path):
+                print("Output file already exists. Please choose a different name.")
+                continue  # Continue to the next iteration of the loop
+
+            # Group statements by their evaluated values
+            grouped_statements = {None: []}  # Initialize with None as a key
+
+            # Check if content is a dictionary
+            if isinstance(content, dict):
+                for var, exp in content.items():
+                    correct_exp = exp.replace(" ", "")
+                    try:
+                        result = eval(exp, variable_values)
+                    except NameError:
+                        result = None
+
+                    if result not in grouped_statements:
+                        grouped_statements[result] = []
+                    grouped_statements[result].append((var, correct_exp))
+            else:  # Assume content is a sequence of pairs (2-tuples)
+                for var, exp in content:
+                    correct_exp = exp.replace(" ", "")
+                    try:
+                        result = eval(exp, variable_values)
+                    except NameError:
+                        result = None
+
+                    if result not in grouped_statements:
+                        grouped_statements[result] = []
+                    grouped_statements[result].append((var, correct_exp))
+
+            # # Sort the dictionary by the keys (values) in descending order
+            # sorted_statements = sorted(grouped_statements.items(), key=lambda x: (x[0] is None, x[0]), reverse=True)
+                    
+            # Sort the dictionary by the keys (values) in descending order
+            sorted_statements = sorted(grouped_statements.items(), key=lambda x: (float('-inf') if x[0] is None else x[0], x[0]), reverse=True)
+
+            # Write to the output file
+            try:
+                with open(output_file_path, 'w') as output_file:
+                    for value, statements in sorted_statements:
+                        output_file.write(f'\n*** Statements with value=> {value}\n')
+                        for var, exp in statements:
+                            output_file.write(f'{var} = {exp}\n')
+                break  # Exit the loop if writing is successful
+            except Exception as e:
+                print(f"Error writing to the output file: {e}")
+
+        return output_file_path
+    
 # -------------------------------------Others--------------------------------------
 
     # Check the brackets 
