@@ -29,6 +29,18 @@ class Utility:
         else:
             return input(prompt)
         
+# -------------------------------------Getters--------------------------------------
+
+    # Get and ensure that file path is valid and not empty
+    def getFile(filePathPrompt):
+        while True:
+            filePath = Utility.userInput(filePathPrompt)
+
+            if Utility.__validateFilePath(filePath):
+                return filePath
+            else:
+                print('Invalid input. Please enter a valid file path.')
+        
 # -------------------------Commonly used (basic) functioms--------------------------
 
     # Read the content of the file
@@ -44,6 +56,23 @@ class Utility:
     # Ensure that the output file path is in the folder
     def outputFilePathinFolder(folderName, fileName):
         return os.path.join(folderName, fileName)
+    
+    def processAssignmentStatements(content, statement_storage):
+        # Split the content into lines
+        lines = content.split('\n')
+
+        # Process each line (assignment statement)
+        for line in lines:
+            # Remove leading and trailing whitespaces
+            line = line.strip()
+
+            # Skip empty lines
+            if not line:
+                continue
+
+            # Update the dictionary to store the assignment statements
+            var, exp = line.split('=')
+            statement_storage[var] = exp
 
 # -------------------------------------Validate--------------------------------------
     
@@ -112,18 +141,19 @@ class Utility:
                             
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
-    
-    # Get and ensure that file path is valid and not empty
-    def getFile(filePathPrompt):
-        while True:
-            filePath = Utility.userInput(filePathPrompt)
 
-            if Utility.__validateFilePath(filePath):
-                return filePath
-            else:
-                print('Invalid input. Please enter a valid file path.')
+    # Validate the file path 
+    def __validateFilePath(filePath):
+        try:
+            with open(filePath, 'r'):
+                pass  # Just open and immediately close the file to check if it exists
+            return True
+        except FileNotFoundError:
+            return False
+        except OSError:
+            return False 
 
-
+    # Check the brackets 
     def checkBrackets(expression):
         stack = []
         left_bracket = '('

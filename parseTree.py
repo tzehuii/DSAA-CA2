@@ -66,7 +66,10 @@ class parseTree():
             # RULE 3: If token is number, set key of the current node # change this so that it accepts a variable as an input oso !!
             # to that number and return to parent
             elif t not in ['+', '-', '*', '/', '**',')'] : 
-                currentTree.setKey(float(t)) #integer (cause it to not work with float)
+                try:
+                    currentTree.setKey(int(t))  # Try to convert to integer
+                except ValueError:
+                    currentTree.setKey(float(t))  # If conversion fails, use float
                 parent = stack.pop()
                 currentTree = parent
                 
@@ -106,16 +109,26 @@ class parseTree():
                 rightValue = var_storage_statement[rightValue]
             
             if op == '+':
-                return leftValue + rightValue
+                try:
+                    return leftValue + rightValue
+                except TypeError:
+                    pass
             elif op == '-':
-                return leftValue - rightValue
+                try:
+                    return leftValue - rightValue
+                except TypeError:
+                    pass
             elif op == '*':
-                return leftValue * rightValue
+                try:
+                    return leftValue * rightValue
+                except TypeError:
+                    pass
             elif op == '/':
                 try:
                     return leftValue / rightValue
                 except ZeroDivisionError:
-                    # print(f"Please input the correct statement as {leftTree} cannot be divided by {rightTree}")
+                    pass
+                except TypeError:
                     pass
             elif op == '**':
                 return leftValue ** rightValue

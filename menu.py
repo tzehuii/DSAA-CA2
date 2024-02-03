@@ -12,6 +12,7 @@ class Menu:
     # Intialise self to run the few programs when called
     def __init__(self):
         self.statement_storage = {}
+        self.variable_values = {}
         self.printOutline()
         self.selection()
 
@@ -97,63 +98,100 @@ class Menu:
 
     # Option 2
     def option2(self):
+        # Sort the assignment statements alphabetically
+        sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
+
+        while True:
+            # Store the current variable values to check for changes later
+            current_values = self.variable_values.copy()
+
+            # Iterate through sorted statements
+            for var, exp in sorted_statements:
+                if var not in self.variable_values:
+                    tree = parseTree(exp, self.variable_values)
+                    new_value = tree.result
+
+                    if new_value is not None:
+                        self.variable_values[var] = new_value
+
+            # Check for changes in variable values
+            if current_values == self.variable_values:
+                break
+        
+        # Print the format
         print('\nCURRENT ASSIGNMENTS:')
-        print('*'*20) 
+        print('*' * 20)
 
-
-        # Create an empty dictionary to store variable values
-        variable_values = {}
-
-        # to get the variable and expression for evaluation 
-        for var, exp in self.statement_storage.items():
-            # build the parse tree for evaluation 
-            tree = parseTree(exp, variable_values)
-
-            # evaluate the statement  
-            evaluated_exp = tree.result
-
-            # Store the result in variable_values
-            variable_values[var] = evaluated_exp
-
-            # strip the space to print nicely for aesthetics  purpose 
+        # Print the final sorted statements
+        for var, exp in sorted_statements:
+            evaluated_exp = self.variable_values.get(var, None)
             correct_exp = exp.replace(" ", "")
-
-            # print out the statement and the results
-            if exp is not None:
-                print(f'{var} = {correct_exp} --> {evaluated_exp}')
+            if evaluated_exp is not None:
+                print(f'{var} = {correct_exp} => {evaluated_exp}')
             else:
-                print(f'{var} = {correct_exp} -->None')
+                print(f'{var} = {correct_exp} => None')
 
     # Option 3
     def option3(self):
+        # Get the user input
         var = Utility.userInput('Please enter the variable you want to evaluate:\n')
-        # Utility.userInput()
         print('\nExpression Tree:')
 
-        # Create an empty dictionary to store variable values
-        variable_values = {}
-
-        for key, exp in self.statement_storage.items():
+        for var, exp in self.statement_storage.items():
             # build the parse tree for evaluation + parse tree
-            parsedTree = parseTree(exp, variable_values)
+            parsedTree = parseTree(exp, self.variable_values)
             
-            # Store the result in variable_values
-            variable_values[key] = parsedTree.result
+            # Store the result in self.variable_values
+            self.variable_values[var] = parsedTree.result
 
             # evaluate the statement  
             evaluated_exp = parsedTree.result
 
             # print the parse tree out 
             parsedTree.tree.printInorder(0)
-            print(f'Value for variable \'{key}\' is {evaluated_exp}')
-
+            print(f'Value for variable \'{var}\' is {evaluated_exp}')
+            
     # Option 4
     def option4(self):
-        # Get the encyrpted and reference file
-        filePath = Utility.getFile('Please enter input file:')
+        # Get and Read the file
+        filePath = Utility.getFile('Please enter input file: ')
+        readFile = Utility.readFile(filePath)
 
+        # Process assignment statements
+        Utility.processAssignmentStatements(readFile, self.statement_storage)
+
+        # Sort the assignment statements alphabetically
+        sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
+
+        while True:
+            # Store the current variable values to check for changes later
+            current_values = self.variable_values.copy()
+
+            # Iterate through sorted statements
+            for var, exp in sorted_statements:
+                if var not in self.variable_values:
+                    tree = parseTree(exp, self.variable_values)
+                    new_value = tree.result
+
+                    if new_value is not None:
+                        self.variable_values[var] = new_value
+
+            # Check for changes in variable values
+            if current_values == self.variable_values:
+                break
+        
+        # Print the format
         print('\nCURRENT ASSIGNMENTS:')
-        print('*'*20) 
+        print('*' * 20)
+
+        # Print the final sorted statements
+        for var, exp in sorted_statements:
+            evaluated_exp = self.variable_values.get(var, None)
+            correct_exp = exp.replace(" ", "")
+            if evaluated_exp is not None:
+                print(f'{var} = {correct_exp} => {evaluated_exp}')
+            else:
+                print(f'{var} = {correct_exp} => None')
 
     # Option 8
     def option8(self):
