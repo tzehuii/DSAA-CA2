@@ -7,6 +7,8 @@ from utility import Utility
 from parseTree import parseTree
 from sort import Sort
 from graph import GraphUtility
+from drawTree import DrawTree
+from turtleGraph import EquationGraph
 
 class Menu:
 
@@ -36,8 +38,8 @@ class Menu:
         print('\t 3. Evaluate a single variable')
         print('\t 4. Read assignment statements from file')
         print('\t 5. Sort assignment statements')
-        print('\t 6. Additional (Jace)')
-        print('\t 7. Additional (Jace)')
+        print('\t 6. Visualing assignment statements with graphs (Jace)')
+        print('\t 7. Turtle Equation Drawing (Jace)')
         print('\t 8. Sorting Game (Tzehui)')
         print('\t 9. Graph Plotting Features (Tzehui)')
         print('\t 10. Exit')
@@ -206,12 +208,30 @@ class Menu:
         print(f"Output file '{outputFile}' created successfully.")
 
     # Additional Features 1 (Jace)!
+    # let users visualise the graph
     def option6(self):
-        print('orh hor nvr do strike +1')
+
+        print("Hello there! \nThis tree is deisgned to help you understand the flow of dependencies between the variables you have input!\n")
+        Utility.userInput()
+
+        print("\nIf the graph is empty, it means that there are no relationships between the current variables stored..\n")
+        Utility.userInput()
+
+        if not self.statement_storage:
+            print("\nOh no! It seems like your tree is empty, please select options 1 or 4 to input variables!")
+            return
+        
+        tree = DrawTree()
+
+        # print("statement storage",self.statement_storage) # check the statements 
+        tree_data = tree.build_tree_data(self.statement_storage)
+        tree.draw_tree(tree_data)
 
     # Additional Features 2 (Jace)!
     def option7(self):
-        print('strike +2!')
+
+        game = EquationGraph()
+        game.play_game()
 
 
     # Additional Features 3 (Tzehui)! 
