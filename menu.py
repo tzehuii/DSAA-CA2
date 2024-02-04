@@ -221,11 +221,23 @@ class Menu:
             print("\nOh no! It seems like your tree is empty, please select options 1 or 4 to input variables!")
             return
         
-        tree = DrawTree()
+        tree = DrawTree(self.statement_storage)
 
         # print("statement storage",self.statement_storage) # check the statements 
         tree_data = tree.build_tree_data(self.statement_storage)
         tree.draw_tree(tree_data)
+        
+        user_choice = ""
+        while user_choice not in ["yes", "no", "y", "n"]:
+            user_choice = Utility.userInputNotEmpty('\nDo you want to display the dependency matrix information? (yes/no): ').lower()
+
+            if user_choice == "yes" or user_choice == "y":
+                print(self.statement_storage)
+                tree.visualize_dependency_info()
+            elif user_choice == 'no' or user_choice == 'n':
+                return
+            else:
+                print('Please enter "yes" or "no"!')
 
     # Additional Features 2 (Jace)!
     def option7(self):
