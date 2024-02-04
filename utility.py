@@ -30,6 +30,16 @@ class Utility:
         else:
             return input(prompt)
         
+    # Get the user input (and ensure its not empty)
+    def userInputNotEmpty(prompt):
+        while True:
+            ans = Utility.userInput(prompt)
+
+            if ans.strip():  # Check if the input is not empty after stripping whitespace
+                return ans
+            else:
+                print("Input cannot be empty. Please try again.")
+        
 # -------------------------------------Getters--------------------------------------
 
     # Get and ensure that file path is valid and not empty

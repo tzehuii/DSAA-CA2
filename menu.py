@@ -6,6 +6,7 @@
 from utility import Utility
 from parseTree import parseTree
 from sort import Sort
+from graph import GraphUtility
 
 class Menu:
 
@@ -38,7 +39,7 @@ class Menu:
         print('\t 6. Additional (Jace)')
         print('\t 7. Additional (Jace)')
         print('\t 8. Sorting Game (Tzehui)')
-        print('\t 9. Additional (Tzehui)')
+        print('\t 9. Graph Plotting Features (Tzehui)')
         print('\t 10. Exit')
 
     # Functions for each option the user choose
@@ -222,27 +223,28 @@ class Menu:
 
         # Ask the user to choose an option
         print('\nChoose an option:\n1. Input your own data\n2. Generate random data\n')
-        option = int(Utility.userInput('Enter your choice: '))
+        option = Utility.enterChoice('Enter a choice: ')
 
         if option == 1:
             # Get the data from the user
-            data = Utility.userInput('\nEnter a list of elements (split by \',\'): ')
+            data = Utility.userInputNotEmpty('\nEnter a list of elements (split by \',\'): ')
             elements = data.split(',')
             original_element = elements.copy()
 
         elif option == 2:
             # Generate random data based on user input (strings)
-            size = int(input("\nEnter the size of the random data: "))
-            str_length = int(input("Enter the length of each random string: "))
+            size = Utility.enterChoice("\nEnter the size of the random data: ")
+            str_length = Utility.enterChoice("Enter the length of each random string: ")
             elements = Utility.generateRandomData(size, str_length)
             original_element = elements.copy()
 
         else:
-            print('Invalid option! Please try again')
+            print('It is not one of the valid options! Returning back to main menu...')
+            return
 
         # Get the user input for the sorting algorithm
         print('\nChoose a sorting algorithm:\n1. Bubble Sort\n2. Merge Sort')
-        choice = int(Utility.userInput('Enter your choice: '))
+        choice = Utility.enterChoice('Enter a choice: ')
 
         # Create an instance of the Sort class
         sort = Sort()
@@ -253,7 +255,8 @@ class Menu:
         elif choice == 2:
             sort.mergeSort(elements)
         else:
-            print('Invalid option! Please try again')
+            print('It is not one of the valid choices! Returning back to main menu...')
+            return
 
         # Display the results
         print(f'\nOriginal List: {original_element}')
@@ -262,7 +265,56 @@ class Menu:
 
     # Additional Features 4 (Tzehui)!
     def option9(self):
-        print('I CONTINUE TMRW!')
+        print('\nWelcome to the Graph Features')
+        print("This feature is to help you to explore graph features interactively. Visualize and analyze graphs with different layouts and algorithms.\n")
+        Utility.userInput()
+
+        # Get user input for the graph data (edge list format)
+        edgelist = Utility.userInputNotEmpty('\nEnter the edge list (format: node1,node2,weight; e.g., A,B,2 B,C,1 A,C,3 D,A,4): ')
+
+        # Convert input to a list of tuples (edge, weight)
+        edges = [tuple(map(str.strip, edge.split(','))) for edge in edgelist.split() if edge]
+
+        # Create a graph
+        g = GraphUtility.createGraph(edges)
+
+        if g is None:
+            return  # Exit the option if creating the graph fails
+
+        # Choose whether to find the shortest path
+        findShortestPath = Utility.userInputNotEmpty('\nDo you want to find the shortest path? (yes/no): ').lower()
+
+        if findShortestPath == 'yes' or findShortestPath == 'y':
+            # Get user input for shortest path
+            start_node = Utility.userInputNotEmpty('Enter the start node: ')
+            end_node = Utility.userInputNotEmpty('Enter the end node: ')
+
+            GraphUtility.findShortestDistance(g, start_node, end_node)
+            
+        elif findShortestPath == 'no' or findShortestPath == 'n':
+            return
+        else:
+            print('It is not one of the valid choices! Returning back to main menu...')
+
+        # Choose whether to visualize the graph
+        visualize_graph = Utility.userInputNotEmpty('\nDo you want to visualize the graph? (yes/no): ').lower()
+
+        if visualize_graph == 'yes' or visualize_graph == 'y':
+            # Choose plotting options
+            print('\nChoose a graph layout:')
+            print('1. Normal Graph')
+            print('2. Minimum Spanning Tree')
+            print('3. Google Page Ranking Algorithm')
+
+            choice = Utility.enterChoice('Enter a choice: ')
+
+            GraphUtility.visualizeGraph(g, edges, choice)
+
+        elif visualize_graph == 'no' or visualize_graph == 'n':
+            return
+        else:
+            print('It is not one of the valid choices! Returning back to main menu...')
+
 
     # Option 10 (EXIT!!!)
     def option10(self):
