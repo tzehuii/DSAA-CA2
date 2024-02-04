@@ -226,7 +226,7 @@ class Menu:
         # print("statement storage",self.statement_storage) # check the statements 
         tree_data = tree.build_tree_data(self.statement_storage)
         tree.draw_tree(tree_data)
-        
+
         user_choice = ""
         while user_choice not in ["yes", "no", "y", "n"]:
             user_choice = Utility.userInputNotEmpty('\nDo you want to display the dependency matrix information? (yes/no): ').lower()
@@ -242,8 +242,11 @@ class Menu:
     # Additional Features 2 (Jace)!
     def option7(self):
 
-        game = EquationGraph()
-        game.play_game()
+        equation_graph = EquationGraph()  # Create an instance of EquationGraph
+        equation_graph.input_equations()  # Call the input_equations() method
+        color, linestyle = equation_graph.customize_graph()
+        print("Your graph will be printed shortly.. Click on the graph to get the axis points!")
+        equation_graph.draw_graph(color, linestyle)
 
 
     # Additional Features 3 (Tzehui)! 
