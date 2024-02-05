@@ -83,6 +83,7 @@ class Menu:
     # Option 1
     def option1(self):
         validated_input = Utility.validateVarName()
+        # validated_input = Utility.getVarName()
 
         # If the validation is successful, update the class attributes
         if validated_input:
@@ -226,12 +227,17 @@ class Menu:
 
     def option5(self):
         # Check if sorted_statements is available
-        if self.sorted_statements is None:
-            print("Sorted statements are not available. Please run option 4 first.")
-            return
+        try:
+            if self.sorted_statements is None:
+                print("Sorted statements are not available. Please run option 4 first.")
+                return
+        except AttributeError:
+                print("Sorted statements are not available. Please run option 4 first.")
+                return
 
         # Pass self.variable_values to Utility.validateOutFile
-        outputFile = Utility.validateOutFile("Please enter output file", self.sorted_statements, self.variable_values)
+        # outputFile = Utility.validateOutFile("Please enter output file", self.sorted_statements, self.variable_values)
+        outputFile = Utility.getOutputFile("Please enter output file", self.sorted_statements, self.variable_values)
         print(f"Output file '{outputFile}' created successfully.")
 
     # Additional Features 1 (Jace)!

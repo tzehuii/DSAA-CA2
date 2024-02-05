@@ -39,19 +39,7 @@ class Utility:
                 return ans
             else:
                 print("Input cannot be empty. Please try again.")
-        
-# -------------------------------------Getters--------------------------------------
 
-    # Get and ensure that file path is valid and not empty
-    def getFile(filePathPrompt):
-        while True:
-            filePath = Utility.userInput(filePathPrompt)
-
-            if Utility.__validateFilePath(filePath):
-                return filePath
-            else:
-                print('Invalid input. Please enter a valid file path.')
-        
 # -------------------------Commonly used (basic) functioms--------------------------
 
     # Read the content of the file
@@ -84,7 +72,29 @@ class Utility:
             # Update the dictionary to store the assignment statements
             var, exp = line.split('=')
             statement_storage[var] = exp
+        
+# -------------------------------------Getters--------------------------------------
 
+    # Get and ensure that file path is valid and not empty
+    def getFile(filePathPrompt):
+        while True:
+            filePath = Utility.userInput(filePathPrompt)
+
+            if Utility.__validateFilePath(filePath):
+                return filePath
+            else:
+                print('Invalid input. Please enter a valid file path.')
+            
+    def getOutputFile(message, content, variable_values):
+        while True:
+            # Get the output file path from the user
+            output_file_path = Utility.userInput(f'{message}: ')
+
+            # Call __validateVarName and return its output file path
+            outputPath = Utility.__validateOutFile(output_file_path, content, variable_values)
+            if outputPath:
+                return outputPath
+            
 # -------------------------------------Validate--------------------------------------
     
     def validateVarName(): # edited
@@ -134,25 +144,6 @@ class Utility:
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
 
-    # validate the input
-    def validateVariable(prompt):
-        while True:
-            try:
-                # Ask for the user input
-                var = Utility.userInput(prompt)
-
-                if var == None:
-                    print('Please key in a varaible to use this option')
-                    Utility.validateVariable()
-                elif var.isnumeric:
-                    print('Please key in letter/letters to use this option')
-                    Utility.validateVariable()
-                elif len(var) == 1:
-                    return var
-                            
-            except ValueError:
-                print('Invalid input. Please enter a valid statement.')
-
     # Validate the file path 
     def __validateFilePath(filePath):
         try:
@@ -165,10 +156,10 @@ class Utility:
             return False 
         
     # write to output file
-    def validateOutFile(message, content, variable_values):
+    def __validateOutFile(output_file_path, content, variable_values):
         while True:
-            # Get the output file path from the user
-            output_file_path = input(f'{message}: ')
+            # # Get the output file path from the user
+            # output_file_path = Utility.userInput(f'{message}: ')
 
             # Check if the output file already exists
             if os.path.exists(output_file_path):
@@ -247,6 +238,7 @@ class Utility:
         data = [''.join(random.choice(characters) for _ in range(str_length)) for _ in range(size)]
         random.shuffle(data)  # Shuffle the list to ensure it's not already sorted
         return data
+         
 
     
 
