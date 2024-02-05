@@ -112,11 +112,24 @@ class Menu:
 
                     if new_value is not None:
                         self.variable_values[var] = new_value
+                
+                # Check if the expression has changed
+                elif exp != self.variable_values.get(var):
+                    # Parse the modified expression using the current variable values
+                    tree = parseTree(exp, self.variable_values)
+                    
+                    # Get the result of the modified expression
+                    new_value = tree.result
+
+                    # If the result is not None, update the variable value and expression
+                    if new_value is not None:
+                        self.variable_values[var] = new_value
+                        # self.variable_values[var] = exp
 
             # Check for changes in variable values
             if current_values == self.variable_values:
                 break
-        
+                    
         # Print the format
         print('\nCURRENT ASSIGNMENTS:')
         print('*' * 20)
@@ -180,9 +193,24 @@ class Menu:
                     if new_value is not None:
                         self.variable_values[var] = new_value
 
+                 # Check if the expression has changed
+                elif exp != self.variable_values.get(var):
+                    # Parse the modified expression using the current variable values
+                    tree = parseTree(exp, self.variable_values)
+                    
+                    # Get the result of the modified expression
+                    new_value = tree.result
+
+                    # If the result is not None, update the variable value and expression
+                    if new_value is not None:
+                        self.variable_values[var] = new_value
+                        # self.variable_values[var] = exp
+
             # Check for changes in variable values
             if current_values == self.variable_values:
                 break
+
+            
         
         # Print the format
         print('\nCURRENT ASSIGNMENTS:')
