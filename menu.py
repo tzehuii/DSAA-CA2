@@ -18,6 +18,7 @@ class Menu:
         self.variable_values = {}
         self.printOutline()
         self.selection()
+        self.sorted_statements = None
 
     # Print the outline 
     def printOutline(self):
