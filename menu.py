@@ -360,7 +360,7 @@ class Menu:
             GraphUtility.findShortestDistance(g, start_node, end_node)
             
         elif findShortestPath == 'no' or findShortestPath == 'n':
-            return
+            pass
         else:
             print('It is not one of the valid choices! Returning back to main menu...')
 
@@ -379,7 +379,7 @@ class Menu:
             GraphUtility.visualizeGraph(g, edges, choice)
 
         elif visualize_graph == 'no' or visualize_graph == 'n':
-            return
+            pass
         else:
             print('It is not one of the valid choices! Returning back to main menu...')
 
