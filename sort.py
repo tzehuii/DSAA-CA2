@@ -2,7 +2,6 @@
 # Student ID: 2214209 & 2214593
 # Class: DAA/2B/01
 
-# Import
 class Sort:
 
     # Initialize the steps attribute

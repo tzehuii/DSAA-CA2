@@ -210,8 +210,6 @@ class Menu:
             if current_values == self.variable_values:
                 break
 
-            
-        
         # Print the format
         print('\nCURRENT ASSIGNMENTS:')
         print('*' * 20)
