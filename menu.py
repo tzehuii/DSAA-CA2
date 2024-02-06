@@ -98,7 +98,7 @@ class Menu:
 
     # Option 2
     def option2(self):
-        # Sort the assignment statements alphabetically ## CHANGE THIS TO A CLASS??
+        # Sort the assignment statements alphabetically
         self.sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
 
         while True:
@@ -109,7 +109,7 @@ class Menu:
             for var, exp in self.sorted_statements:
                 if var not in self.variable_values:
                     
-                    tree = parseTree(exp, self.variable_values)
+                    tree = parseTree(exp, self.variable_values) # evaluate using the parseTree class
                     new_value = tree.result
 
                     if new_value is not None:
@@ -126,7 +126,6 @@ class Menu:
                     # If the result is not None, update the variable value and expression
                     if new_value is not None:
                         self.variable_values[var] = new_value
-                        # self.variable_values[var] = exp
 
             # Check for changes in variable values
             if current_values == self.variable_values:
@@ -145,7 +144,7 @@ class Menu:
             else:
                 print(f'{var} = {correct_exp} => None')
 
-    # Option 3 -- evaluates all the variables 
+    # Option 3 -- format and evaluate all the variables 
     def option3(self):
         # Get the user input
         var = Utility.userInput('Please enter the variable you want to evaluate:\n')
@@ -179,7 +178,6 @@ class Menu:
         Utility.processAssignmentStatements(readFile, self.statement_storage)
 
         # Sort the assignment statements alphabetically
-        # sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
         self.sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
 
         while True:
@@ -236,7 +234,6 @@ class Menu:
                 return
 
         # Pass self.variable_values to Utility.validateOutFile
-        # outputFile = Utility.validateOutFile("Please enter output file", self.sorted_statements, self.variable_values)
         outputFile = Utility.getOutputFile("Please enter output file", self.sorted_statements, self.variable_values)
         print(f"Output file '{outputFile}' created successfully.")
 

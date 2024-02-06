@@ -97,60 +97,8 @@ class Utility:
             
 # -------------------------------------Validate--------------------------------------
 
-    # def validateVarName(): # edited
-    #     while True: 
-    #         try: 
-    #             # Ask for the user input 
-    #             statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
-
-    #             # spilt the var and experession
-    #             var, exp = statement.split('=', 1)  
-
-    #             # Remove spaces from var and exp and check each character
-    #             var = var.strip()
-    #             exp = exp.strip()
-
-    #             if var.isalpha() and len(var) >= 1:  # Check if var contains only alphabets and has more than or equal to one letter
-    #                                 # Check if exp is not empty
-    #                 if exp:
-                    
-    #                     # Check for incomplete statements without any of the following operators
-    #                     if not any(op in exp for op in ['+', '-', '*', '/', '**']):
-    #                         print('Invalid statement. Please include at least one of the operators: +, -, *, /, **')
-    #                         continue
-
-    #                     # Check for incomplete statements
-    #                     elif exp.endswith(('+','-','*','/','**')):
-    #                         print('Invalid incomplete statement. Please enter a complete assignment.')
-    #                         continue
-
-    #                     # Check for invalid characters in the expression
-    #                     elif not all(char.isalnum() or char in ['+', '-', '*', '/', '**', '(', ')','.'] for char in exp):
-    #                         print('Invalid characters in the expression. Please use only alphanumeric characters and valid operators.')
-    #                         continue
-
-    #                     # Check for valid brackets
-    #                     elif not Utility.checkBrackets(exp):
-    #                         print("Invalid bracket usage. Please check your brackets.")
-    #                         continue
-
-    #                     # Ensure that the expression contains at least one pair of brackets
-    #                     elif '(' not in exp or ')' not in exp:
-    #                         print("Invalid expression. Please include at least one pair of brackets.")
-    #                         continue
-
-    #                     return var, exp 
-                
-    #                 else:
-    #                     print('Invalid incomplete statement. Please enter a complete assignment.')
-    #             else:
-    #                 print('Please key in a statement with 1 variable at the start (e.g., a=(1+2))')
-                    
-    #         except ValueError:
-    #             print('Invalid input. Please enter a valid statement.')
-            
- 
-    def validateVarName(): # edited
+    # validate the variable name
+    def validateVarName():
         while True: 
             try: 
                 # Ask for the user input 
@@ -164,7 +112,7 @@ class Utility:
                 exp = exp.strip()
 
                 if var.isalpha() and len(var) >= 1:  # Check if var contains only alphabets and has more than or equal to one letter
-                                    # Check if exp is not empty
+                    # Check if exp is not empty
                     if exp:
                     
                         # Check for incomplete statements without any of the following operators
@@ -228,31 +176,14 @@ class Utility:
     # write to output file
     def __validateOutFile(output_file_path, content, variable_values):
         while True:
-            # # Get the output file path from the user
-            # output_file_path = Utility.userInput(f'{message}: ')
 
             # Check if the output file already exists
             if os.path.exists(output_file_path):
                 print("Output file already exists. Please choose a different name.")
                 return
-                # continue  # Continue to the next iteration of the loop
 
             # Group statements by their evaluated values
             grouped_statements = {None: []}  # Initialize with None as a key
-
-            # # Check if content is a dictionary
-            # if isinstance(content, dict):
-            #     for var, exp in content.items():
-            #         correct_exp = exp.replace(" ", "")
-            #         try:
-            #             result = eval(exp, variable_values)
-            #         except NameError:
-            #             result = None
-
-            #         if result not in grouped_statements:
-            #             grouped_statements[result] = []
-            #         grouped_statements[result].append((var, correct_exp))
-            # else:  # Assume content is a sequence of pairs (2-tuples)
 
             for var, exp in content:
                 correct_exp = exp.replace(" ", "")
@@ -265,9 +196,7 @@ class Utility:
                     grouped_statements[result] = [] # if the result not inside then create a new list that will store statements that evaluate the same value
                 grouped_statements[result].append((var, correct_exp)) # appends a tupple to the list associated with the result key in the grouped statements whcih contains the var and exp 
 
-            # # Sort the dictionary by the keys (values) in descending order
-            # sorted_statements = sorted(grouped_statements.items(), key=lambda x: (x[0] is None, x[0]), reverse=True)
-                    
+
             # Sort the dictionary by the keys (values) in descending order
             sorted_statements = sorted(grouped_statements.items(), key=lambda x: (float('-inf') if x[0] is None else x[0], x[0]), reverse=True) 
             # '-inf' ensure that 'None' is considered the lowest value during sorting

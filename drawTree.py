@@ -59,11 +59,12 @@ class DrawTree:
         
      # displaying the dependency matrix   
     def display_dependency_matrix(self, variables, dependency_matrix):
-        df = pd.DataFrame(dependency_matrix, index=variables, columns=variables)
-        table = tabulate(df, headers='keys', tablefmt='grid', showindex=True, numalign="center", stralign='center')
+        df = pd.DataFrame(dependency_matrix, index=variables, columns=variables) # store it in a dataframe
+        table = tabulate(df, headers='keys', tablefmt='grid', showindex=True, numalign="center", stralign='center') # keys specifies the column names be used as header
         print("\nDependency Matrix:")
-        print(table)
+        print(table) # prints the formatted table
 
+    # call the results
     def visualize_dependency_info(self):
         variables, dependency_matrix = self.build_dependency_matrix(self.statement_storage)
         self.display_dependency_matrix(variables, dependency_matrix)

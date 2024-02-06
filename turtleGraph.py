@@ -114,10 +114,3 @@ class EquationGraph:
 
     def on_click(self, x, y):
         print(f"Clicked at ({x}, {y})")
-
-
-# # Example usage
-# game = EquationGraph()
-# game.input_equations()
-# color, linestyle = game.customize_graph()
-# game.draw_graph(color, linestyle)
