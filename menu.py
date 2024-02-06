@@ -83,7 +83,6 @@ class Menu:
     # Option 1
     def option1(self):
         validated_input = Utility.validateVarName()
-        # validated_input = Utility.getVarName()
 
         # If the validation is successful, update the class attributes
         if validated_input:
@@ -193,7 +192,7 @@ class Menu:
                     if new_value is not None:
                         self.variable_values[var] = new_value
 
-                 # Check if the expression has changed
+                # Check if the expression has changed
                 elif exp != self.variable_values.get(var):
                     # Parse the modified expression using the current variable values
                     tree = parseTree(exp, self.variable_values)
@@ -204,7 +203,6 @@ class Menu:
                     # If the result is not None, update the variable value and expression
                     if new_value is not None:
                         self.variable_values[var] = new_value
-                        # self.variable_values[var] = exp
 
             # Check for changes in variable values
             if current_values == self.variable_values:
@@ -253,7 +251,6 @@ class Menu:
         
         tree = DrawTree(self.statement_storage)
 
-        # print("statement storage",self.statement_storage) # check the statements 
         tree_data = tree.build_tree_data(self.statement_storage)
         tree.draw_tree(tree_data)
 
@@ -277,7 +274,6 @@ class Menu:
         color, linestyle = equation_graph.customize_graph()
         print("Your graph will be printed shortly.. Click on the graph to get the axis points!")
         equation_graph.draw_graph(color, linestyle)
-
 
     # Additional Features 3 (Tzehui)! 
     def option8(self):
@@ -379,7 +375,6 @@ class Menu:
             pass
         else:
             print('It is not one of the valid choices! Returning back to main menu...')
-
 
     # Option 10 (EXIT!!!)
     def option10(self):
