@@ -6,6 +6,7 @@
 import string 
 import os
 import random
+import re
 
 class Utility:
  
@@ -96,7 +97,60 @@ class Utility:
                 return outputPath
             
 # -------------------------------------Validate--------------------------------------
-    
+
+    # def validateVarName(): # edited
+    #     while True: 
+    #         try: 
+    #             # Ask for the user input 
+    #             statement = Utility.userInput('Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n')
+
+    #             # spilt the var and experession
+    #             var, exp = statement.split('=', 1)  
+
+    #             # Remove spaces from var and exp and check each character
+    #             var = var.strip()
+    #             exp = exp.strip()
+
+    #             if var.isalpha() and len(var) >= 1:  # Check if var contains only alphabets and has more than or equal to one letter
+    #                                 # Check if exp is not empty
+    #                 if exp:
+                    
+    #                     # Check for incomplete statements without any of the following operators
+    #                     if not any(op in exp for op in ['+', '-', '*', '/', '**']):
+    #                         print('Invalid statement. Please include at least one of the operators: +, -, *, /, **')
+    #                         continue
+
+    #                     # Check for incomplete statements
+    #                     elif exp.endswith(('+','-','*','/','**')):
+    #                         print('Invalid incomplete statement. Please enter a complete assignment.')
+    #                         continue
+
+    #                     # Check for invalid characters in the expression
+    #                     elif not all(char.isalnum() or char in ['+', '-', '*', '/', '**', '(', ')','.'] for char in exp):
+    #                         print('Invalid characters in the expression. Please use only alphanumeric characters and valid operators.')
+    #                         continue
+
+    #                     # Check for valid brackets
+    #                     elif not Utility.checkBrackets(exp):
+    #                         print("Invalid bracket usage. Please check your brackets.")
+    #                         continue
+
+    #                     # Ensure that the expression contains at least one pair of brackets
+    #                     elif '(' not in exp or ')' not in exp:
+    #                         print("Invalid expression. Please include at least one pair of brackets.")
+    #                         continue
+
+    #                     return var, exp 
+                
+    #                 else:
+    #                     print('Invalid incomplete statement. Please enter a complete assignment.')
+    #             else:
+    #                 print('Please key in a statement with 1 variable at the start (e.g., a=(1+2))')
+                    
+    #         except ValueError:
+    #             print('Invalid input. Please enter a valid statement.')
+            
+ 
     def validateVarName(): # edited
         while True: 
             try: 
@@ -120,8 +174,24 @@ class Utility:
                             continue
 
                         # Check for incomplete statements
-                        if exp.endswith(('+','-','*','/','**')):
+                        elif exp.endswith(('+','-','*','/','**')):
                             print('Invalid incomplete statement. Please enter a complete assignment.')
+                            continue
+
+                        invalid_char = False
+                        for i in range(len(exp)):
+                            char = exp[i]
+                            prev_char = exp[i - 1] if i > 0 else None
+                            next_char = exp[i + 1] if i < len(exp) - 1 else None
+
+                            if not (char.isalnum() or
+                                    (char == '.' and (prev_char.isnumeric() if prev_char else True) and (next_char.isnumeric() if next_char else True))
+                                    or char in ['+', '-', '*', '/', '**', '(', ')', ' ']):
+                                invalid_char = True
+                                break
+
+                        if invalid_char:
+                            print('Invalid characters in the expression. Please use only alphanumeric characters, decimal point, and valid operators.')
                             continue
 
                         # Check for valid brackets
@@ -144,6 +214,7 @@ class Utility:
             except ValueError:
                 print('Invalid input. Please enter a valid statement.')
 
+
     # Validate the file path 
     def __validateFilePath(filePath):
         try:
@@ -164,7 +235,8 @@ class Utility:
             # Check if the output file already exists
             if os.path.exists(output_file_path):
                 print("Output file already exists. Please choose a different name.")
-                continue  # Continue to the next iteration of the loop
+                return
+                # continue  # Continue to the next iteration of the loop
 
             # Group statements by their evaluated values
             grouped_statements = {None: []}  # Initialize with None as a key

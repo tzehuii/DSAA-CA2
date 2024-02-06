@@ -6,7 +6,7 @@
 from stack import Stack
 from binaryTree import BinaryTree
 from tokenization import Tokenization
-import string
+from decimal import Decimal
 
 class parseTree():
     def __init__(self, exp, var_storage_statement=None):
@@ -41,38 +41,21 @@ class parseTree():
                 stack.push(currentTree)
                 currentTree = currentTree.getRightTree() 
 
-
-            # # RULE 3: If token is variable / float, set key of the current node 
-            # elif t not in ['+', '-', '*', '/', ')','**']:
-            #     if t.isalpha():
-            #         currentTree.setKey(t)
-            #     else:
-            #         currentTree.setKey(float(t))
-                
-            # # RULE 4: If token is number, set key of the current node 
-            # # to that number and return to parent
-            # elif t not in ['+', '-', '*', '/', ')'] : 
-            #     currentTree.setKey(int(t)) 
-            #     parent = stack.pop()
-            #     currentTree = parent
-                
-
-            # work with the other variables in the statement (if any)
+            # RULE 3: work with the other variables in the statement (if any)
             elif t.isalpha():
                 currentTree.setKey(str(t))
                 parent = stack.pop()
                 currentTree = parent
                 
-            # RULE 3: If token is number, set key of the current node # change this so that it accepts a variable as an input oso !!
+            # RULE 4: If token is number, set key of the current node # change this so that it accepts a variable as an input oso !!
             # to that number and return to parent
             elif t not in ['+', '-', '*', '/', '**',')'] : 
                 try:
                     currentTree.setKey(int(t))  # Try to convert to integer
                 except ValueError:
-                    currentTree.setKey(float(t))  # If conversion fails, use float
+                    currentTree.setKey(Decimal(t))  # If conversion fails, use float
                 parent = stack.pop()
                 currentTree = parent
-                
                 
             # RULE 5: If token is ')' go to parent of current node
             elif t == ')':
@@ -139,42 +122,4 @@ class parseTree():
                 return var_storage_statement[tree.getKey()]
             else:
                 return tree.getKey()
-    
-        
-# # reference for pemdas
-
-#     def pemdas(self):
-#         return self._pemdas_recursive(self.tree)
-
-#     def _pemdas_recursive(self, tree):
-#         if tree is not None:
-
-#             # isinstance(object, type) 
-#             if isinstance(tree.getKey(), float):
-#                 return tree.getKey()
-
-#             operator = tree.getKey()
-
-#             # Evaluate left and right subtrees based on PEMDAS rules
-#             if operator == '**':
-#                 left_value = self._pemdas_recursive(tree.getLeftTree())
-#                 right_value = self._pemdas_recursive(tree.getRightTree())
-#                 return left_value ** right_value
-#             elif operator in ['*', '/']:
-#                 left_value = self._pemdas_recursive(tree.getLeftTree())
-#                 right_value = self._pemdas_recursive(tree.getRightTree())
-#                 if operator == '*':
-#                     return left_value * right_value
-#                 elif operator == '/':
-#                     return left_value / right_value
-#             elif operator in ['+', '-']:
-#                 left_value = self._pemdas_recursive(tree.getLeftTree())
-#                 right_value = self._pemdas_recursive(tree.getRightTree())
-#                 if operator == '+':
-#                     return left_value + right_value
-#                 elif operator == '-':
-#                     return left_value - right_value
-
-#             # If it's a variable or a number, return its value
-#             return self._get_variable_value(operator, left_value, right_value)
     

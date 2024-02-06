@@ -99,14 +99,14 @@ class Menu:
     # Option 2
     def option2(self):
         # Sort the assignment statements alphabetically ## CHANGE THIS TO A CLASS??
-        sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
+        self.sorted_statements = sorted(self.statement_storage.items(), key=lambda x: x[0])
 
         while True:
             # Store the current variable values to check for changes later
             current_values = self.variable_values.copy()
 
             # Iterate through sorted statements
-            for var, exp in sorted_statements:
+            for var, exp in self.sorted_statements:
                 if var not in self.variable_values:
                     
                     tree = parseTree(exp, self.variable_values)
@@ -137,7 +137,7 @@ class Menu:
         print('*' * 20)
 
         # Print the final sorted statements
-        for var, exp in sorted_statements:
+        for var, exp in self.sorted_statements:
             evaluated_exp = self.variable_values.get(var, None)
             correct_exp = exp.replace(" ", "")
             if evaluated_exp is not None:
