@@ -1,12 +1,11 @@
 # Name: Teng Tze Hui & Ng Jace Xin
 # Student ID: 2214209 & 2214593
-# Class: DAA/2B/01
+# Class: DAAA/2B/01
 
 # Imports
 import string 
 import os
 import random
-import re
 
 class Utility:
  

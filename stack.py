@@ -1,6 +1,6 @@
 # Name: Teng Tze Hui & Ng Jace Xin
 # Student ID: 2214209 & 2214593
-# Class: DAA/2B/01
+# Class: DAAA/2B/01
 
 class Stack:
     def __init__(self):
