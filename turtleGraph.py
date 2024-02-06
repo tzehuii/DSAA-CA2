@@ -46,8 +46,7 @@ class EquationGraph:
 
     def customize_graph(self):
         color = input("Enter the color for the graph (default is blue): ") or "blue"
-        linestyle = input("Enter the linestyle for the graph (default is solid line): ") or "-"
-
+        linestyle = input("Enter the linestyle for the graph ('-' or '-.') (default is solid line): ") or "-"
         return color, linestyle
 
     def draw_graph(self, color="blue", linestyle="-"):
@@ -75,9 +74,8 @@ class EquationGraph:
         # Implement interactive features
         turtle.onscreenclick(self.on_click)
         turtle.done()
-
+        
     def draw_single_equation(self, equation, color, linestyle):
-
         turtle.speed("fastest")
 
         x_vals = np.linspace(-10, 10, 400)
@@ -92,10 +90,27 @@ class EquationGraph:
         turtle.pensize(2)
         turtle.setheading(90)
         turtle.pendown()
-        turtle.forward(600)
 
-        for i in range(1, len(x_vals)):
-            turtle.goto(x_vals[i] * 40, y_vals[i] * 40)
+        # Set linestyle
+        if linestyle == "-.":
+            for i in range(1, len(x_vals), 3):
+                turtle.speed("fastest")
+                turtle.penup()
+                turtle.goto(x_vals[i] * 40, y_vals[i] * 40)
+                turtle.pendown()
+                turtle.goto(x_vals[i + 2] * 40, y_vals[i + 2] * 40)
+        else:
+            for i in range(1, len(x_vals)):
+                turtle.speed("fastest")
+                turtle.penup()
+                turtle.goto(x_vals[i - 1] * 40, y_vals[i - 1] * 40)
+                turtle.pendown()
+                turtle.goto(x_vals[i] * 40, y_vals[i] * 40)
+
+        # Reset linestyle
+        turtle.pendown()
+        turtle.pencolor(color)
+        turtle.pensize(2)
 
     def on_click(self, x, y):
         print(f"Clicked at ({x}, {y})")
